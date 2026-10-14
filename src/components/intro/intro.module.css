@@ -1,0 +1,139 @@
+/* Visible solo con <html data-intro>, que pone intro-script antes del primer pintado. */
+.intro {
+  display: none;
+}
+
+:root[data-intro] .intro {
+  display: flex;
+}
+
+/* Dissolve hacia Inicio: 800 ms solo, 400 ms al saltarla (interacciones del board). */
+:root[data-intro='leaving'] .intro {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--intro-out) ease-out;
+}
+
+/*
+ * Spec de Penpot: typing 40 ms/char, cursor blink 1 s y loader 0 → 100 % en
+ * 2,2 s. Todo es CSS para que arranque con el HTML, sin esperar a React.
+ */
+.typed {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  animation: typing 440ms steps(11, end) 300ms forwards; /* "npm run dev": 11 caracteres */
+}
+
+.line {
+  opacity: 0;
+  animation: appear 1ms forwards;
+}
+
+.at900 {
+  animation-delay: 900ms;
+}
+
+.at1000 {
+  animation-delay: 1000ms;
+}
+
+.at1300 {
+  animation-delay: 1300ms;
+}
+
+.at1600 {
+  animation-delay: 1600ms;
+}
+
+.at1900 {
+  animation-delay: 1900ms;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  vertical-align: middle;
+  background: var(--accent-text);
+}
+
+/* Sigue al comando mientras se escribe; desaparece cuando empieza la salida. */
+.cursorTyping {
+  animation:
+    blink 1s steps(1) infinite,
+    hide 1ms 900ms forwards;
+}
+
+/* Cursor final, en su propia línea como en el board. */
+.cursorEnd {
+  visibility: hidden;
+  animation:
+    blink 1s steps(1) infinite,
+    show 1ms 2000ms forwards;
+}
+
+.fill {
+  width: 0;
+  animation: load 2200ms linear forwards;
+}
+
+/* La propiedad y el contador son globales: CSS Modules solo aísla clases y keyframes. */
+@property --intro-pct {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.pct {
+  counter-reset: intro-pct var(--intro-pct);
+  animation: pct 2200ms linear forwards;
+}
+
+.pct::after {
+  content: counter(intro-pct) '%';
+}
+
+@keyframes typing {
+  to {
+    width: 11ch;
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes hide {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes show {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes load {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes pct {
+  to {
+    --intro-pct: 100;
+  }
+}
