@@ -18,6 +18,7 @@ export type ExternalLink = {
 export type Profile = {
   name: string;
   role: string;
+  siteUrl: string;
   email: string;
   links: { linkedin: ExternalLink; github: ExternalLink };
   availability: string;

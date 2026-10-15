@@ -7,6 +7,7 @@ import { getProfile, getTurnstileSiteKey } from '@/infrastructure/container';
 import { sendContactAction } from './actions';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/contacto' },
   title: 'Contacto',
   description:
     'Cuéntame tu idea, proyecto o vacante. Respondo en menos de 24 horas, normalmente mucho antes.',

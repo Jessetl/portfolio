@@ -5,6 +5,7 @@ import { ScreenTransition } from '@/components/motion/screen-transition';
 import { getStack } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/stack' },
   title: 'Stack',
   description:
     'Elijo la herramienta según el problema, no al revés. Estas son las que uso a diario en producción.',

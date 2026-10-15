@@ -6,6 +6,7 @@ import { RevealOnScroll } from '@/components/motion/reveal-on-scroll';
 import { revealScript } from '@/components/motion/reveal-script';
 import { ScreenFooter } from '@/components/site/screen-footer';
 import { SiteHeader } from '@/components/site/site-header';
+import { getProfile } from '@/infrastructure/container';
 
 import './globals.css';
 
@@ -27,13 +28,18 @@ const jetbrainsMono = JetBrains_Mono({
 // SSG estricto: si algo vuelve dinámica una ruta, `next build` falla.
 export const dynamic = 'error';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Jesús Matute · Full-Stack Developer',
-    template: '%s · Jesús Matute',
-  },
-  description:
-    'De la interfaz a la API: React y Next.js en el cliente; Node.js, NestJS y Laravel en el servidor. 7 años creando plataformas para banca, cripto, crédito y logística.',
+// Canonical no va aquí: la define cada página (heredada, todas apuntarían al inicio).
+export const generateMetadata = async (): Promise<Metadata> => {
+  const { siteUrl } = await getProfile();
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: 'Jesús Matute · Full-Stack Developer',
+      template: '%s · Jesús Matute',
+    },
+    description:
+      'De la interfaz a la API: React y Next.js en el cliente; Node.js, NestJS y Laravel en el servidor. 7 años creando plataformas para banca, cripto, crédito y logística.',
+  };
 };
 
 const RootLayout = ({ children }: LayoutProps<'/'>) => (

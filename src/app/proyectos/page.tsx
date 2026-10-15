@@ -5,6 +5,7 @@ import { ScreenTransition } from '@/components/motion/screen-transition';
 import { listProjects } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/proyectos' },
   title: 'Proyectos',
   description:
     'Casos de estudio: portal de cotización B2B, plataforma cripto bancaria, historial crediticio digital y gestión de envíos.',
