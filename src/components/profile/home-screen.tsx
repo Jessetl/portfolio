@@ -29,7 +29,8 @@ export const HomeScreen = ({ profile }: { profile: Profile }) => (
           {profile.summary}
         </p>
       </header>
-      <div data-reveal>
+      {/* min-w-0: sin él, las líneas `whitespace-pre` del código ensanchan la columna en mobile. */}
+      <div data-reveal className='min-w-0'>
         <CodeCard />
       </div>
     </div>
