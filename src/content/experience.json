@@ -1,0 +1,30 @@
+[
+  {
+    "period": "2019 — 2021",
+    "role": "Full-Stack Developer",
+    "company": "LimonByte",
+    "context": "Presencial",
+    "summary": "4+ sistemas a medida y una app de transporte en React Native publicada en las tiendas."
+  },
+  {
+    "period": "2020 — 2021",
+    "role": "Tech Lead & Full-Stack",
+    "company": "CMLExports",
+    "context": "Remoto",
+    "summary": "Lideré 2 devs y construí el sistema central de envíos en Laravel + Angular."
+  },
+  {
+    "period": "2021 — 2025",
+    "role": "Frontend y Full-Stack Dev",
+    "company": "Globaltask",
+    "context": "Remoto",
+    "summary": "Buró de crédito con validación facial y portal B2B de cotización para una fintech."
+  },
+  {
+    "period": "2025 — 2026",
+    "role": "Frontend Developer",
+    "company": "Globaltask",
+    "context": "Banco de LATAM",
+    "summary": "Plataforma cripto, BFF en Next.js y microfrontends con tests de 0% a 85%."
+  }
+]

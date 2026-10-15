@@ -40,6 +40,12 @@
   --terminal-shadow: #111111;
   --code-string: #f2f2ee; /* code/string */
   --code-line-number: #5e6470; /* local del board 01 · Inicio */
+
+  /* Locales: degradado del retrato (02) y sombra dura del badge (02) y del formulario (06). */
+  --portrait-highlight: #d9d9d3;
+  --hard-shadow: #0b0c0f;
+  /* Fondo del overlay de detalle (addBackgroundOverlay del prototipo de Penpot). */
+  --backdrop: rgb(0 0 0 / 0.2);
 }
 
 @theme inline {
@@ -71,7 +77,14 @@
   --color-terminal-dot-3: var(--terminal-dot-3);
   --color-code-string: var(--code-string);
   --color-code-line-number: var(--code-line-number);
+  --color-portrait-highlight: var(--portrait-highlight);
+  --color-backdrop: var(--backdrop);
+  /* Panel del detalle de proyecto: sombra dura hacia la izquierda. */
+  --shadow-panel: -8px 8px 0 var(--hard-shadow);
   --shadow-terminal: 6px 6px 0 var(--terminal-shadow);
+  --shadow-hard: 6px 6px 0 var(--hard-shadow);
+  /* Foco de los campos del formulario: halo de 4 px de brand/accent al 40 %. */
+  --shadow-focus: 0 0 0 4px color-mix(in oklab, var(--primary) 40%, transparent);
   --font-sans: var(--font-plex-sans);
   --font-heading: var(--font-fraunces);
   --font-mono: var(--font-jetbrains-mono);
@@ -113,8 +126,54 @@
   --text-chip--line-height: 1.2;
   --text-chip-lg: 0.8125rem; /* 13px */
   --text-chip-lg--line-height: 1.2;
+  --text-chip-xs: 0.6875rem; /* 11px, "Más reciente" */
+  --text-chip-xs--line-height: 1.2;
   --text-lead: 1.1875rem; /* 19px */
   --text-lead--line-height: 1.6;
+  --text-body-lg: 1.0625rem; /* 17px, bio de Sobre mí */
+  --text-body-lg--line-height: 1.7;
+  --text-body-xl: 1.125rem; /* 18px, Mensaje enviado */
+  --text-body-xl--line-height: 1.6;
+  --text-body-md: 1rem; /* 16px, datos de contacto */
+  --text-body-md--line-height: 1.4;
+  --text-field: 0.9375rem; /* 15px, campos del formulario */
+  --text-field--line-height: 1.4;
+  --text-body-sm: 0.9375rem; /* 15px, texto de tarjetas */
+  --text-body-sm--line-height: 1.5;
+  --text-body-xs: 0.875rem; /* 14px */
+  --text-body-xs--line-height: 1.4;
+  --text-intro: 1.0625rem; /* 17px, intro de Stack y Contacto */
+  --text-intro--line-height: 1.6;
+  --text-card-title-sm: 1.25rem; /* 20px, Experiencia */
+  --text-card-title-sm--line-height: 1.3;
+  --text-card-title-sm--letter-spacing: -0.0125rem;
+  --text-card-title: 1.3125rem; /* 21px, Sobre mí */
+  --text-card-title--line-height: 1.4;
+  --text-card-title--letter-spacing: -0.0125rem;
+  --text-card-title-lg: 1.4375rem; /* 23px, Stack y Contacto */
+  --text-card-title-lg--line-height: 1.4;
+  --text-card-title-lg--letter-spacing: -0.0125rem;
+  --text-card-title-xl: 1.625rem; /* 26px, Proyectos */
+  --text-card-title-xl--line-height: 1.2;
+  --text-card-title-xl--letter-spacing: -0.0125rem;
+  --text-card-body: 0.9375rem; /* 15px, resumen de proyecto */
+  --text-card-body--line-height: 1.55;
+  --text-card-body-sm: 0.875rem; /* 14px, Experiencia */
+  --text-card-body-sm--line-height: 1.55;
+  --text-detail-title: 2.25rem; /* 36px, detalle de proyecto */
+  --text-detail-title--line-height: 1.2;
+  --text-detail-title--letter-spacing: -0.0125rem;
+  --text-detail-body: 0.9375rem; /* 15px, reto y solución */
+  --text-detail-body--line-height: 1.6;
+  --text-metric: 1.5rem; /* 24px, métricas del detalle */
+  --text-metric--line-height: 1.4;
+  --text-metric--letter-spacing: -0.0125rem;
+  --text-overline: 0.75rem; /* 12px mono en mayúsculas: sector · años */
+  --text-overline--line-height: 1.4;
+  --text-overline--letter-spacing: 0.075rem;
+  --text-monogram: 27.5cqi; /* 120px en el retrato de 436 px; escala con su ancho */
+  --text-monogram--line-height: 1;
+  --text-monogram--letter-spacing: -0.05rem;
   --text-stat: clamp(2rem, 1.5rem + 1.25vw, 2.5rem); /* 40px */
   --text-stat--line-height: 1;
   --text-stat--letter-spacing: -0.05rem;
@@ -131,12 +190,43 @@
   --leading-ui: 1.2;
   --tracking-label: 0.0625rem; /* 1px */
 
+  /* Ancho de los boards de Penpot: layouts que solo encajan a 1440 (Experiencia). */
+  --breakpoint-board: 90rem;
+
   /* Cursor de la spec de motion: blink 1 s. */
   --animate-blink: blink 1s steps(1) infinite;
+  /* Línea de tiempo de Experiencia, según las capas del board: el progreso
+     crece de 0 a 1 en 1,2 s y el nodo actual late (escala 1 → 1,6 y se desvanece). */
+  --animate-grow-x: grow-x 1.2s ease-out both;
+  --animate-grow-y: grow-y 1.2s ease-out both;
+  --animate-pulse-ring: pulse-ring 2s ease-out infinite;
+  /* Check de envío (spec de motion): escala 0,6 → 1 con back.out. */
+  --animate-pop-in: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
   @keyframes blink {
     50% {
       opacity: 0;
+    }
+  }
+  @keyframes grow-x {
+    from {
+      scale: 0 1;
+    }
+  }
+  @keyframes grow-y {
+    from {
+      scale: 1 0;
+    }
+  }
+  @keyframes pulse-ring {
+    to {
+      scale: 1.6;
+      opacity: 0;
+    }
+  }
+  @keyframes pop-in {
+    from {
+      scale: 0.6;
     }
   }
 }

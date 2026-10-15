@@ -10,12 +10,17 @@ const chipVariants = cva(
   {
     variants: {
       surface: {
-        outline: 'bg-card ring-1 ring-border ring-inset', // disponible, Enter, IA
+        outline: 'bg-card ring-1 ring-border ring-inset', // disponible, Enter
         muted: 'bg-muted', // tags de stack y proyectos
+        card: 'bg-card', // foto-perfil.webp
+        // IA en el flujo de trabajo (Stack). Un ring no puede ser punteado: este
+        // borde sí suma 2 px, como los chips de 29 px del board.
+        dashed: 'border border-dashed border-border/70 bg-card',
       },
       size: {
         default: 'text-chip-lg', // 13px
         sm: 'text-chip', // 12px
+        xs: 'text-chip-xs', // 11px, "Más reciente"
       },
     },
     defaultVariants: { surface: 'outline', size: 'default' },

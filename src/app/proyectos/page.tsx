@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
-import { ScreenHeading } from '@/components/site/screen-heading';
+import { ProjectsScreen } from '@/components/projects/projects-screen';
+import { listProjects } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
   title: 'Proyectos',
@@ -8,10 +9,10 @@ export const metadata: Metadata = {
     'Casos de estudio: portal de cotización B2B, plataforma cripto bancaria, historial crediticio digital y gestión de envíos.',
 };
 
-const ProjectsPage = () => (
-  <ScreenHeading number='04' label='proyectos' className='xl:pt-10'>
-    Proyectos destacados
-  </ScreenHeading>
-);
+const ProjectsPage = async () => {
+  const projects = await listProjects();
+
+  return <ProjectsScreen projects={projects} />;
+};
 
 export default ProjectsPage;

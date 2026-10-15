@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 
-import { ScreenHeading } from '@/components/site/screen-heading';
+import { ContactScreen } from '@/components/contact/contact-screen';
+import { getProfile } from '@/infrastructure/container';
+
+import { sendContactAction } from './actions';
 
 export const metadata: Metadata = {
   title: 'Contacto',
@@ -8,14 +11,10 @@ export const metadata: Metadata = {
     'Cuéntame tu idea, proyecto o vacante. Respondo en menos de 24 horas, normalmente mucho antes.',
 };
 
-const ContactPage = () => (
-  <ScreenHeading
-    number='06'
-    label='contacto'
-    titleClassName='max-w-[470px]'
-  >
-    ¿Construimos algo juntos?
-  </ScreenHeading>
-);
+const ContactPage = async () => {
+  const profile = await getProfile();
+
+  return <ContactScreen profile={profile} action={sendContactAction} />;
+};
 
 export default ContactPage;

@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "portal-de-cotizacion-b2b",
+    "category": "fintech",
+    "sector": "Fintech",
+    "period": "2023 – 2025",
+    "title": "Portal de cotización B2B",
+    "summary": "Diseñé la arquitectura y construí el portal que reemplazó la cotización manual.",
+    "tools": ["Next.js", "TypeScript", "HeroUI", "React Hook Form", "WebSockets", "Recharts"],
+    "detail": {
+      "domain": "Mercado de capitales",
+      "subtitle": "Full-Stack · arquitectura, UI y microservicios NestJS",
+      "metrics": [
+        { "value": "Hexagonal", "label": "arquitectura" },
+        { "value": "Dinámicos", "label": "formularios" },
+        { "value": "En vivo", "label": "por WebSocket" }
+      ],
+      "challenge": "La cotización de productos estructurados era manual, y cada producto nuevo exigía pantallas a medida.",
+      "solution": "Arquitectura hexagonal en Next.js, motor de formularios con React Hook Form, avisos por WebSocket cuando un PDF pesado está listo y gráficos con Recharts."
+    }
+  },
+  {
+    "slug": "plataforma-cripto-bancaria",
+    "category": "fintech",
+    "sector": "Banca",
+    "period": "2025 – 2026",
+    "title": "Plataforma cripto bancaria",
+    "summary": "Seguimiento de transacciones cripto con BFF en Next.js y microfrontends con tests de 0% a 85%.",
+    "tools": ["Next.js", "shadcn/ui", "Jest", "Microfrontends"],
+    "detail": {
+      "domain": "Cripto",
+      "subtitle": "Frontend · vistas en Next.js, BFF y microfrontends con React",
+      "metrics": [
+        { "value": "85%", "label": "cobertura desde 0%" },
+        { "value": "<100", "label": "code smells" },
+        { "value": "BFF", "label": "datos protegidos" }
+      ],
+      "challenge": "El banco necesitaba seguir sus transacciones cripto sin exponer credenciales en el cliente, y sus microfrontends no pasaban el quality gate de SonarQube.",
+      "solution": "Vistas con Next.js, Tailwind y shadcn/ui, un BFF que centraliza los servicios del banco, pruebas con Jest de 0% a más del 85% de cobertura y un bot de pruebas en Telegram con Claude API."
+    }
+  },
+  {
+    "slug": "historial-crediticio-digital",
+    "category": "fintech",
+    "sector": "Buró de crédito",
+    "period": "2021 – 2023",
+    "title": "Historial crediticio digital",
+    "summary": "Relancé la solicitud con validación facial (MetaMap): ~2.000 usuarios en el primer mes.",
+    "tools": ["React", "Redux Toolkit", "Liferay"],
+    "detail": {
+      "domain": "Identidad digital",
+      "subtitle": "Frontend · flujo de solicitud, identidad digital y Liferay",
+      "metrics": [
+        { "value": "2.000", "label": "usuarios en un mes" },
+        { "value": "MetaMap", "label": "validación facial" },
+        { "value": "Liferay", "label": "portlets con React" }
+      ],
+      "challenge": "La solicitud de historial crediticio en línea había dejado de procesar solicitudes y tenía que integrarse al portal corporativo.",
+      "solution": "Rediseño del flujo con validación facial de MetaMap, estado con Redux Toolkit, migración a portlets de Liferay y un middleware en Java que valida el cifrado antes de enviar los datos."
+    }
+  },
+  {
+    "slug": "gestion-de-envios",
+    "category": "logistics",
+    "sector": "Logística",
+    "company": "CMLExports",
+    "period": "2020 – 2021",
+    "title": "Gestión de envíos",
+    "summary": "Lideré a 2 devs y construí el sistema central de envíos: API REST, datos y empaque automático.",
+    "tools": ["Laravel", "Angular", "MySQL", "BoxPacker"],
+    "detail": {
+      "domain": "Comercio internacional",
+      "subtitle": "Tech Lead & Full-Stack en CMLExports · API, frontend y datos",
+      "metrics": [
+        { "value": "2 devs", "label": "equipo a cargo" },
+        { "value": "MySQL", "label": "modelo de datos" },
+        { "value": "BoxPacker", "label": "empaque automático" }
+      ],
+      "challenge": "La logística de envíos internacionales no estaba digitalizada: no había un sistema central para clientes, empresas, cajas y envíos.",
+      "solution": "Plataforma de gestión y rastreo con API REST en Laravel y frontend en Angular, modelo de datos en MySQL y cálculo automático del empaque con BoxPacker, liderando a 2 devs."
+    }
+  }
+]

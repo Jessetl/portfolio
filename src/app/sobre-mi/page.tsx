@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
 
-import { ScreenHeading } from '@/components/site/screen-heading';
+import { AboutScreen } from '@/components/profile/about-screen';
+import { getProfile } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
   title: 'Sobre mí',
   description:
-    'Soy Jesús, desarrollador Full-Stack e Ingeniero en Informática. Desde 2019 construyo plataformas de punta a punta para banca, cripto, buró de crédito y logística, casi siempre en equipos remotos.',
+    'Ingeniero en Informática y desarrollador Full-Stack con foco en frontend. Desde 2019 construyo plataformas para banca, cripto, crédito y logística.',
 };
 
-const AboutPage = () => (
-  <ScreenHeading number='02' label='sobre_mí' titleClassName='max-w-[470px]'>
-    Del backend al pixel, sin perder el hilo.
-  </ScreenHeading>
-);
+const AboutPage = async () => {
+  const profile = await getProfile();
+
+  return <AboutScreen profile={profile} />;
+};
 
 export default AboutPage;

@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "icon": "layout",
+      "title": "Frontend",
+      "subtitle": "Interfaces y experiencia",
+      "tools": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind",
+        "shadcn/ui",
+        "Redux Toolkit",
+        "React Hook Form",
+        "Recharts"
+      ]
+    },
+    {
+      "icon": "server",
+      "title": "Backend",
+      "subtitle": "APIs, BFF y tiempo real",
+      "tools": ["Node.js", "NestJS", "Express", "Laravel", "PHP", "WebSockets", "REST"]
+    },
+    {
+      "icon": "database",
+      "title": "Datos y DevOps",
+      "subtitle": "Modelado y entornos",
+      "tools": ["PostgreSQL", "MongoDB", "MySQL", "Docker", "Linux", "Git Flow"]
+    },
+    {
+      "icon": "shield",
+      "title": "Arquitectura",
+      "subtitle": "Código que dura",
+      "tools": ["Microfrontends", "Hexagonal", "Clean Arch", "Jest", "SonarQube", "OAuth 2.0"]
+    }
+  ],
+  "ai": ["Claude API", "Ingeniería de contexto", "Desarrollo asistido por IA"]
+}

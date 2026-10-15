@@ -3,11 +3,10 @@ import { Download } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+import { CV_HREF } from './cv';
 import { Logo } from './logo';
 import { MobileMenu } from './mobile-menu';
 import { NavLinks } from './nav-links';
-
-const CV_HREF = '/cv-jesus-matute.pdf';
 
 /**
  * Header de Penpot (88 px a 1440). Entre 768 y 1279 px la nav pasa a una

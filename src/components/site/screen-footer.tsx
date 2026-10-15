@@ -11,7 +11,7 @@ import { screens } from './screens';
 
 /**
  * Board "Footer" de Penpot: progreso del recorrido y anterior/siguiente. Solo
- * aparece en las pantallas 01–06. Una fila desde 1024 px; debajo, el progreso
+ * aparece en las pantallas 01–06 (y en 07, como cierre). Una fila desde 1024 px; debajo, el progreso
  * queda arriba y las acciones a la derecha (tablet) o apiladas con
  * "Siguiente" primero (móvil).
  */
@@ -26,9 +26,13 @@ export const ScreenFooter = () => {
   return (
     <footer className='mx-auto w-full max-w-360 px-4 sm:px-8 xl:px-20'>
       <div className='h-px bg-border/60' />
+      {/* 07 · Mensaje enviado (estado de Contacto) cambia el recorrido por este cierre. */}
+      <p className='hidden py-5 font-mono text-mono text-accent-text lg:h-[95px] lg:items-center lg:py-0 [body:has(#message-sent)_&]:flex'>
+        {'// fin del recorrido'}
+      </p>
       <nav
         aria-label='Recorrido'
-        className='flex flex-col gap-5 py-5 lg:h-[95px] lg:flex-row lg:items-center lg:justify-between lg:py-0'
+        className='flex flex-col gap-5 py-5 lg:h-[95px] lg:flex-row lg:items-center lg:justify-between lg:py-0 [body:has(#message-sent)_&]:hidden'
       >
         <div className='flex items-center gap-4 lg:gap-6'>
           <p className='shrink-0 font-mono text-base leading-ui font-semibold'>

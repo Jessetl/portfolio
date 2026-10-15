@@ -1,6 +1,17 @@
 {
   "name": "Jesús Matute",
   "role": "Full-Stack Developer",
+  "email": "mtree1101@gmail.com",
+  "links": {
+    "linkedin": {
+      "label": "in/jesus-matute",
+      "href": "https://www.linkedin.com/in/jesus-matute"
+    },
+    "github": {
+      "label": "github.com/Jessetl",
+      "href": "https://github.com/Jessetl"
+    }
+  },
   "availability": "Disponible para nuevos proyectos",
   "headline": {
     "text": "Construyo productos fintech",
@@ -11,5 +22,27 @@
     { "value": "7", "label": "años\nconstruyendo" },
     { "value": "85%", "label": "cobertura de tests\n(desde 0%)" },
     { "value": "2.000", "label": "usuarios en el\nprimer mes" }
+  ],
+  "bio": [
+    "Soy Jesús, Ingeniero en Informática y desarrollador Full-Stack con foco en frontend. Desde 2019 construyo plataformas para banca, cripto, buró de crédito, mercado de capitales y logística, casi siempre en equipos remotos.",
+    "Me gusta trabajar donde el producto es crítico: flujos KYC, cotizadores financieros, datos sensibles. Cuido la arquitectura (hexagonal, Clean Architecture, microfrontends) y la calidad: llevé la cobertura de tests de 0% a más del 85% y bajé los code smells a menos de 100."
+  ],
+  "location": "Cagua, Venezuela · Remoto (UTC-4)",
+  "values": [
+    {
+      "icon": "code",
+      "title": "Código mantenible",
+      "text": "SOLID, Clean Code y tests con Jest como estándar, no como extra."
+    },
+    {
+      "icon": "shield",
+      "title": "Datos sensibles, seguros",
+      "text": "OAuth 2.0, BFF y cifrado: nada sensible queda expuesto en el cliente."
+    },
+    {
+      "icon": "zap",
+      "title": "IA con criterio",
+      "text": "Uso Claude API e ingeniería de contexto para acelerar sin bajar el estándar."
+    }
   ]
 }

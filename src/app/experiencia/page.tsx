@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
-import { ScreenHeading } from '@/components/site/screen-heading';
+import { ExperienceScreen } from '@/components/experience/experience-screen';
+import { listJobs } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
   title: 'Experiencia',
@@ -8,10 +9,10 @@ export const metadata: Metadata = {
     'Trayectoria como Full-Stack y Frontend Developer en LimonByte, CMLExports y Globaltask, de 2019 a 2026.',
 };
 
-const ExperiencePage = () => (
-  <ScreenHeading number='05' label='experiencia' className='xl:pt-10'>
-    Trayectoria
-  </ScreenHeading>
-);
+const ExperiencePage = async () => {
+  const jobs = await listJobs();
+
+  return <ExperienceScreen jobs={jobs} />;
+};
 
 export default ExperiencePage;
