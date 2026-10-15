@@ -19,9 +19,10 @@ Las skills están enlazadas en `.claude/skills/`, así que Claude Code las carga
 Penpot es la única fuente de diseño. **Si algo visible no está en Penpot, no se crea.**
 
 - **Dónde:** team _Me_ → proyecto _portfolio_ → archivo _Portolio_ (escrito así en Penpot) → página _Page 1_. Boards
-  desktop: `00 · Intro` a `07 · Mensaje enviado`, `Overlay · Detalle de proyecto`, `Motion & Flow spec` y
-  `Z-Flow guide`. Debajo, la fila mobile (375 px): `Mobile · 00 · Intro` a `Mobile · 07 · Mensaje enviado`,
-  `Mobile · Overlay · Detalle de proyecto` y `Mobile · Menú`.
+  desktop: `00 · Intro` a `07 · Mensaje enviado`, `08 · No encontrada (404)`, `09 · Error`,
+  `Overlay · Detalle de proyecto`, `Motion & Flow spec`, `Z-Flow guide` y `App icon` (favicon `</JM>`). Debajo, la
+  fila mobile (375 px): `Mobile · 00 · Intro` a `Mobile · 09 · Error`, `Mobile · Overlay · Detalle de proyecto` y
+  `Mobile · Menú`.
 - **Cómo leerlo:** con el MCP de Penpot (`high_level_overview`, `execute_code`, `export_shape`); el archivo debe estar
   abierto con el plugin MCP conectado. Si no hay acceso, detente y pide que lo conecten: nunca implementes de memoria
   ni "aproximado".
@@ -45,9 +46,9 @@ Reglas:
    contenido), incluido el menú móvil (`Mobile · Menú`). Los boards mobile replican el responsive del código a 375 px;
    entre 375 y 1440 se reacomoda lo existente (apilar, cambiar columnas y tamaños) con los mismos tokens. Un elemento
    nuevo necesita diseño en Penpot primero.
-8. Estados sin diseño (errores de formulario, carga, 404): reutiliza estilos que ya existen en Penpot, como el texto de
-   ayuda del formulario, y avisa que falta su diseño. Nunca inventes un estilo. No crees una página 404 propia hasta
-   que exista en Penpot.
+8. Estados sin diseño (errores de formulario, carga): reutiliza estilos que ya existen en Penpot, como el texto de
+   ayuda del formulario, y avisa que falta su diseño. Nunca inventes un estilo. La 404 (`not-found.tsx`) y el error
+   (`error.tsx`) siguen los boards 08 y 09.
 9. Sin Penpot solo se permite lo que no cambia el diseño visible: metadata, JSON-LD, sitemap y robots, atributos
    `data-*` de analítica, `aria-*` y texto `sr-only`, el anillo de `focus-visible` con tokens existentes y las variantes
    de `prefers-reduced-motion`.

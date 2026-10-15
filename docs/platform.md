@@ -3,7 +3,7 @@
 Portfolio de Jesús Matute (Full-Stack Developer) construido como un producto medible: cada sección y cada CTA existen
 para llevar a un reclutador o cliente a una acción, y los datos de uso deciden cómo evoluciona el sitio.
 
-> **Estado (2026-10-14):** el diseño está completo en Penpot; las reglas de arquitectura y de SEO/UX están en
+> **Estado (2026-10-15):** el diseño está completo en Penpot; las reglas de arquitectura y de SEO/UX están en
 > `docs/skills/`; la configuración SSG y la librería de analítica están aplicadas. Hay layout responsive (header,
 > footer, menú móvil y tokens de Penpot), una ruta por pantalla, la intro animada (00) y las pantallas de Inicio (01),
 > Sobre mí (02), Stack (03), Proyectos (04, grilla y filtro), Experiencia (05) y Contacto (06, con su estado 07 ·
@@ -12,7 +12,7 @@ para llevar a un reclutador o cliente a una acción, y los datos de uso deciden 
 > `IconBox`, los íconos de marca y la superficie de tarjeta `cardSurface`. El detalle de proyecto es un modal sobre
 > `/proyectos`, como en el prototipo de Penpot; el contenido de los cuatro detalles sale del perfil profesional y solo
 > el portal de cotización tiene ilustración en el detalle. Falta el PDF del CV (`public/cv-jesus-matute.pdf`). El retrato de Sobre mí es el placeholder de Penpot
-> hasta tener la foto.
+> hasta tener la foto. Las páginas 404 (08) y de error (09) y el ícono `</JM>` (`src/app/icon.png` y `apple-icon.png`) salen de Penpot.
 
 ## 1. Propósito
 
