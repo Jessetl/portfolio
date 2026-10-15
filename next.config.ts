@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 // SSG con el modelo de caché anterior de Next 16: sin cacheComponents ni partialPrefetching.
 // Ver docs/skills/seo-ux.
 const nextConfig: NextConfig = {
+  // Sin el ícono "N" de Next en desarrollo; los errores se siguen mostrando.
+  devIndicators: false,
   images: {
     formats: ["image/avif", "image/webp"],
   },
