@@ -70,6 +70,7 @@ export const ContactForm = ({
 
   return (
     <form
+      data-reveal
       action={action}
       className={cn(cardSurface, 'p-6 shadow-hard sm:p-8 sm:pb-7 xl:-mt-2')}
     >

@@ -38,7 +38,11 @@ export const AboutScreen = ({ profile }: { profile: Profile }) => (
 
     <ul className='mt-12 grid gap-6 lg:grid-cols-3 xl:mt-15'>
       {profile.values.map((value) => (
-        <li key={value.title} className={cn(cardSurface, 'px-6 pt-6 pb-2.25')}>
+        <li
+          key={value.title}
+          data-reveal
+          className={cn(cardSurface, 'px-6 pt-6 pb-2.25')}
+        >
           <IconBox icon={icons[value.icon]} />
           <h2 className='mt-4 font-heading text-card-title font-medium'>
             {value.title}

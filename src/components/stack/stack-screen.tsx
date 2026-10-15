@@ -40,7 +40,11 @@ export const StackScreen = ({ stack }: { stack: Stack }) => (
 
     <ul className='mt-10 grid gap-6 sm:grid-cols-2 xl:mt-13.5 xl:grid-cols-4'>
       {stack.categories.map((category) => (
-        <li key={category.title} className={cn(cardSurface, 'p-6 xl:min-h-95')}>
+        <li
+          key={category.title}
+          data-reveal
+          className={cn(cardSurface, 'p-6 xl:min-h-95')}
+        >
           <IconBox icon={icons[category.icon]} />
           <h2 className='mt-5 font-heading text-card-title-lg font-medium'>
             {category.title}
@@ -59,7 +63,7 @@ export const StackScreen = ({ stack }: { stack: Stack }) => (
       ))}
     </ul>
 
-    <div className='mt-12 flex flex-wrap items-center gap-3'>
+    <div data-reveal className='mt-12 flex flex-wrap items-center gap-3'>
       <h2 className='font-mono text-mono text-muted-foreground'>
         IA en mi flujo de trabajo
       </h2>

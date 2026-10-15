@@ -51,7 +51,9 @@ export const MobileMenu = ({ cvHref }: { cvHref: string }) => {
         <Dialog.Popup className='fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background px-4 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 sm:px-8 md:hidden'>
           <Dialog.Title className='sr-only'>Menú</Dialog.Title>
           <div className='flex items-center justify-between gap-4 py-4'>
-            <Logo onClick={() => setOpen(false)} />
+            {/* Sin transición entre pantallas desde el menú: el overlay
+                abierto quedaría debajo del contenido que se desliza. */}
+            <Logo onClick={() => setOpen(false)} animate={false} />
             <Dialog.Close aria-label='Cerrar menú' className={iconButton}>
               <X aria-hidden />
             </Dialog.Close>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { AboutScreen } from '@/components/profile/about-screen';
+import { ScreenTransition } from '@/components/motion/screen-transition';
 import { getProfile } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
 const AboutPage = async () => {
   const profile = await getProfile();
 
-  return <AboutScreen profile={profile} />;
+  return (
+    <ScreenTransition>
+      <AboutScreen profile={profile} />
+    </ScreenTransition>
+  );
 };
 
 export default AboutPage;

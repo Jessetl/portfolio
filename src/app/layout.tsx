@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Fraunces, IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 
 import { introScript } from '@/components/intro/intro-script';
+import { RevealOnScroll } from '@/components/motion/reveal-on-scroll';
+import { revealScript } from '@/components/motion/reveal-script';
 import { ScreenFooter } from '@/components/site/screen-footer';
 import { SiteHeader } from '@/components/site/site-header';
 
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: LayoutProps<'/'>) => (
-  // suppressHydrationWarning: el script de la intro marca <html> antes de hidratar.
+  // suppressHydrationWarning: los scripts de la intro y del reveal marcan <html> antes de hidratar.
   <html
     lang='es'
     className={`${fraunces.variable} ${plexSans.variable} ${jetbrainsMono.variable}`}
@@ -43,6 +45,7 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => (
   >
     <head>
       <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      <script dangerouslySetInnerHTML={{ __html: revealScript }} />
     </head>
     <body className='flex min-h-dvh flex-col'>
       <SiteHeader />
@@ -50,6 +53,7 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => (
         {children}
       </main>
       <ScreenFooter />
+      <RevealOnScroll />
     </body>
   </html>
 );

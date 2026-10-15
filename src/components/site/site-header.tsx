@@ -13,7 +13,11 @@ import { NavLinks } from './nav-links';
  * segunda fila; debajo de 768 px la reemplaza el menú móvil.
  */
 export const SiteHeader = () => (
-  <header className='mx-auto w-full max-w-360 px-4 sm:px-8 xl:px-20'>
+  // Nombre de view transition: el header queda fijo mientras la pantalla se desliza.
+  <header
+    style={{ viewTransitionName: 'site-header' }}
+    className='mx-auto w-full max-w-360 px-4 sm:px-8 xl:px-20'
+  >
     {/* 87 px + divisor de 1 px = los 88 px del header en Penpot. */}
     <div className='flex flex-wrap items-center justify-between gap-x-4 gap-y-3 py-4 xl:h-[87px] xl:flex-nowrap xl:py-0'>
       <Logo />

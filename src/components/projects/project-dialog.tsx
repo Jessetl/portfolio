@@ -29,7 +29,7 @@ export const ProjectDialog = ({
       <Dialog.Popup className='fixed inset-y-0 right-0 z-50 w-full max-w-150 overflow-y-auto bg-card px-6 pt-10 pb-7 shadow-panel ring-1 ring-border ring-inset transition-[translate,opacity] duration-400 ease-out data-ending-style:translate-x-full data-ending-style:duration-300 data-ending-style:ease-in data-starting-style:translate-x-full sm:px-10 motion-reduce:duration-150 motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:opacity-0'>
         <Dialog.Close
           aria-label='Cerrar detalle'
-          className='absolute top-6 right-6 grid size-11 cursor-pointer place-items-center rounded-full bg-muted'
+          className='absolute top-6 right-6 grid size-11 cursor-pointer place-items-center rounded-full bg-muted motion-safe:transition-transform motion-safe:duration-120 motion-safe:active:scale-97'
         >
           <X aria-hidden />
         </Dialog.Close>

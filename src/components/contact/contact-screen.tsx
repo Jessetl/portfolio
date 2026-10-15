@@ -50,7 +50,7 @@ export const ContactScreen = ({
             </p>
             <ul className='mt-12.5 space-y-4'>
               {channels.map(({ label, icon, value, href, external }) => (
-                <li key={label} className='flex items-start gap-4 py-1'>
+                <li key={label} data-reveal className='flex items-start gap-4 py-1'>
                   <IconBox icon={icon} />
                   <div className='min-w-0'>
                     <p className='font-mono text-overline tracking-label text-muted-foreground uppercase'>

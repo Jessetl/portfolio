@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 
-import { isActive, screens } from './screens';
+import { isActive, screens, transitionTo } from './screens';
 
 // Nav de Penpot desde 768 px (segunda fila hasta 1279). Debajo, la reemplaza
 // el menú móvil. Es cliente solo para marcar la pantalla activa.
@@ -25,6 +25,7 @@ export const NavLinks = () => {
               <Link
                 href={href}
                 aria-current={active ? 'page' : undefined}
+                transitionTypes={transitionTo(pathname, href)}
                 className={cn(
                   'flex flex-col gap-1.5 py-1 font-mono text-mono leading-ui whitespace-nowrap',
                   active && 'font-semibold',
@@ -40,8 +41,11 @@ export const NavLinks = () => {
                     {label}
                   </span>
                 </span>
+                {/* Con nombre de view transition, el indicador se desliza al
+                    ítem nuevo al cambiar de pantalla (250 ms, globals.css). */}
                 <span
                   aria-hidden
+                  style={active ? { viewTransitionName: 'nav-indicator' } : undefined}
                   className={cn(
                     'h-0.5 w-6 rounded-xs',
                     active ? 'bg-accent-text' : 'bg-transparent',

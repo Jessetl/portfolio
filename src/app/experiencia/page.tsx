@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ExperienceScreen } from '@/components/experience/experience-screen';
+import { ScreenTransition } from '@/components/motion/screen-transition';
 import { listJobs } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
 const ExperiencePage = async () => {
   const jobs = await listJobs();
 
-  return <ExperienceScreen jobs={jobs} />;
+  return (
+    <ScreenTransition>
+      <ExperienceScreen jobs={jobs} />
+    </ScreenTransition>
+  );
 };
 
 export default ExperiencePage;

@@ -56,10 +56,14 @@ export const MessageSent = ({ name, email }: { name: string; email: string }) =>
         horas en {email}.
       </p>
       <div className='mt-9 flex flex-col-reverse gap-4 sm:flex-row'>
-        <Link href='/proyectos' className={cn(buttonVariants({ variant: 'outline' }))}>
+        <Link
+          href='/proyectos'
+          transitionTypes={['step-right']}
+          className={cn(buttonVariants({ variant: 'outline' }))}
+        >
           Ver proyectos
         </Link>
-        <Link href='/' className={cn(buttonVariants())}>
+        <Link href='/' transitionTypes={['dissolve']} className={cn(buttonVariants())}>
           Volver al inicio
           <ArrowUp aria-hidden />
         </Link>

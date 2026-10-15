@@ -11,3 +11,30 @@ export const screens = [
 /** Activa si es la ruta exacta o una ruta anidada de esa pantalla (p. ej. /proyectos/x). */
 export const isActive = (href: string, pathname: string) =>
   pathname === href || (href !== '/' && pathname.startsWith(`${href}/`));
+
+// Posición de cada pantalla en el flujo en Z del prototipo (Z-Flow guide).
+const zFlow: Record<string, readonly [row: number, col: number]> = {
+  '/': [0, 0],
+  '/sobre-mi': [0, 1],
+  '/stack': [0, 2],
+  '/proyectos': [1, 0],
+  '/experiencia': [1, 1],
+  '/contacto': [1, 2],
+};
+
+/**
+ * `transitionTypes` para ir de una pantalla a otra (Motion & Flow spec): en la
+ * misma fila, push horizontal (`step-*` 500 ms en Anterior/Siguiente, `push-*`
+ * 450 ms en nav, puntos y logo); al cambiar de fila, push vertical de 600 ms.
+ */
+export const transitionTo = (
+  from: string,
+  to: string,
+  kind: 'step' | 'jump' = 'jump',
+) => {
+  const a = zFlow[from];
+  const b = zFlow[to];
+  if (!a || !b || from === to) return undefined;
+  if (a[0] !== b[0]) return [b[0] > a[0] ? 'push-up' : 'push-down'];
+  return [`${kind === 'step' ? 'step' : 'push'}-${b[1] > a[1] ? 'left' : 'right'}`];
+};

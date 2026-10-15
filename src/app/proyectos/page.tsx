@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ProjectsScreen } from '@/components/projects/projects-screen';
+import { ScreenTransition } from '@/components/motion/screen-transition';
 import { listProjects } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
 const ProjectsPage = async () => {
   const projects = await listProjects();
 
-  return <ProjectsScreen projects={projects} />;
+  return (
+    <ScreenTransition>
+      <ProjectsScreen projects={projects} />
+    </ScreenTransition>
+  );
 };
 
 export default ProjectsPage;

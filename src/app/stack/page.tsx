@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { StackScreen } from '@/components/stack/stack-screen';
+import { ScreenTransition } from '@/components/motion/screen-transition';
 import { getStack } from '@/infrastructure/container';
 
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
 const StackPage = async () => {
   const stack = await getStack();
 
-  return <StackScreen stack={stack} />;
+  return (
+    <ScreenTransition>
+      <StackScreen stack={stack} />
+    </ScreenTransition>
+  );
 };
 
 export default StackPage;

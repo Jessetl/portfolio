@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ContactScreen } from '@/components/contact/contact-screen';
+import { ScreenTransition } from '@/components/motion/screen-transition';
 import { getProfile } from '@/infrastructure/container';
 
 import { sendContactAction } from './actions';
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
 const ContactPage = async () => {
   const profile = await getProfile();
 
-  return <ContactScreen profile={profile} action={sendContactAction} />;
+  return (
+    <ScreenTransition>
+      <ContactScreen profile={profile} action={sendContactAction} />
+    </ScreenTransition>
+  );
 };
 
 export default ContactPage;

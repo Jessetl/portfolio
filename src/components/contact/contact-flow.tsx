@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, type ReactNode } from 'react';
+import { useActionState, ViewTransition, type ReactNode } from 'react';
 
 import type {
   ContactMessageError,
@@ -38,13 +38,21 @@ export const ContactFlow = ({
     status: 'idle',
   });
 
+  // Enviar formulario (Motion & Flow spec): 06 se desvanece en 07 en 500 ms.
+  // Las claves separan los dos estados para que solo ese cambio se anime.
   if (state.status === 'sent')
-    return <MessageSent name={state.name} email={state.email} />;
+    return (
+      <ViewTransition key='sent' enter='form-dissolve' default='none'>
+        <MessageSent name={state.name} email={state.email} />
+      </ViewTransition>
+    );
 
   return (
-    <div className='grid gap-12 xl:grid-cols-[minmax(0,1fr)_600px] xl:gap-10'>
-      {info}
-      <ContactForm action={formAction} pending={pending} state={state} />
-    </div>
+    <ViewTransition key='form' exit='form-dissolve' default='none'>
+      <div className='grid gap-12 xl:grid-cols-[minmax(0,1fr)_600px] xl:gap-10'>
+        {info}
+        <ContactForm action={formAction} pending={pending} state={state} />
+      </div>
+    </ViewTransition>
   );
 };

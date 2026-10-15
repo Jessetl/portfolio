@@ -55,6 +55,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
 
   return (
     <li
+      data-reveal
       className={cn(
         cardSurface,
         'relative flex flex-col transition-[translate,box-shadow] duration-200 ease-out hover:ring-primary motion-safe:hover:-translate-y-1',

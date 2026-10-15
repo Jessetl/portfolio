@@ -46,6 +46,9 @@
   --hard-shadow: #0b0c0f;
   /* Fondo del overlay de detalle (addBackgroundOverlay del prototipo de Penpot). */
   --backdrop: rgb(0 0 0 / 0.2);
+
+  /* back.out(1.4) de GSAP (Motion & Flow spec) muestreado en 10 tramos. */
+  --ease-back-out: linear(0, 0.384, 0.667, 0.863, 0.986, 1.05, 1.07, 1.061, 1.037, 1.012, 1);
 }
 
 @theme inline {
@@ -234,6 +237,176 @@
 /* Mientras la intro está visible (ver components/intro), la página no se desplaza. */
 :root[data-intro] {
   overflow: hidden;
+}
+
+/*
+ * Motion & Flow spec · transiciones entre pantallas con View Transitions (el
+ * tipo sale de transitionTo en components/site/screens.ts). El header queda
+ * fijo como referencia y el indicador de la nav se desliza al ítem nuevo.
+ */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  z-index: 100;
+  animation: none;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+::view-transition-group(nav-indicator) {
+  z-index: 101;
+  animation-duration: 250ms;
+  animation-timing-function: ease-out;
+}
+/* push: la pantalla vieja sale y la nueva entra desde el lado opuesto. */
+::view-transition-old(.push-left) {
+  animation: 450ms ease-in-out both vt-to-left;
+}
+::view-transition-new(.push-left) {
+  animation: 450ms ease-in-out both vt-from-right;
+}
+::view-transition-old(.push-right) {
+  animation: 450ms ease-in-out both vt-to-right;
+}
+::view-transition-new(.push-right) {
+  animation: 450ms ease-in-out both vt-from-left;
+}
+::view-transition-old(.step-left) {
+  animation: 500ms ease-in-out both vt-to-left;
+}
+::view-transition-new(.step-left) {
+  animation: 500ms ease-in-out both vt-from-right;
+}
+::view-transition-old(.step-right) {
+  animation: 500ms ease-in-out both vt-to-right;
+}
+::view-transition-new(.step-right) {
+  animation: 500ms ease-in-out both vt-from-left;
+}
+::view-transition-old(.push-up) {
+  animation: 600ms ease-in-out both vt-to-top;
+}
+::view-transition-new(.push-up) {
+  animation: 600ms ease-in-out both vt-from-bottom;
+}
+::view-transition-old(.push-down) {
+  animation: 600ms ease-in-out both vt-to-bottom;
+}
+::view-transition-new(.push-down) {
+  animation: 600ms ease-in-out both vt-from-top;
+}
+::view-transition-old(.dissolve) {
+  animation: 600ms ease-out both vt-fade-out;
+}
+::view-transition-new(.dissolve) {
+  animation: 600ms ease-out both vt-fade-in;
+}
+/* Enviar formulario: 06 se desvanece en 07. */
+::view-transition-old(.form-dissolve) {
+  animation: 500ms ease-out both vt-fade-out;
+}
+::view-transition-new(.form-dissolve) {
+  animation: 500ms ease-out both vt-fade-in;
+}
+@keyframes vt-to-left {
+  to {
+    translate: -100vw 0;
+  }
+}
+@keyframes vt-from-right {
+  from {
+    translate: 100vw 0;
+  }
+}
+@keyframes vt-to-right {
+  to {
+    translate: 100vw 0;
+  }
+}
+@keyframes vt-from-left {
+  from {
+    translate: -100vw 0;
+  }
+}
+@keyframes vt-to-top {
+  to {
+    translate: 0 -100vh;
+  }
+}
+@keyframes vt-from-bottom {
+  from {
+    translate: 0 100vh;
+  }
+}
+@keyframes vt-to-bottom {
+  to {
+    translate: 0 100vh;
+  }
+}
+@keyframes vt-from-top {
+  from {
+    translate: 0 -100vh;
+  }
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Reveal al hacer scroll (ver components/motion/reveal-on-scroll). */
+:root[data-reveal-ready] [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+[data-revealed] {
+  animation: 400ms var(--ease-back-out) backwards reveal;
+  animation-delay: calc(var(--reveal-i, 0) * 60ms);
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+/* Movimiento reducido (spec): solo opacidad en 150 ms, sin escalonado. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.push-left),
+  ::view-transition-old(.push-right),
+  ::view-transition-old(.step-left),
+  ::view-transition-old(.step-right),
+  ::view-transition-old(.push-up),
+  ::view-transition-old(.push-down),
+  ::view-transition-old(.dissolve),
+  ::view-transition-old(.form-dissolve) {
+    animation: 150ms ease both vt-fade-out;
+  }
+  ::view-transition-new(.push-left),
+  ::view-transition-new(.push-right),
+  ::view-transition-new(.step-left),
+  ::view-transition-new(.step-right),
+  ::view-transition-new(.push-up),
+  ::view-transition-new(.push-down),
+  ::view-transition-new(.dissolve),
+  ::view-transition-new(.form-dissolve) {
+    animation: 150ms ease both vt-fade-in;
+  }
+  ::view-transition-group(nav-indicator) {
+    animation: none;
+  }
+  [data-revealed] {
+    animation: 150ms ease-out backwards vt-fade-in;
+    animation-delay: 0s;
+  }
 }
 
 @layer base {

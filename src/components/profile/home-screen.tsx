@@ -29,13 +29,15 @@ export const HomeScreen = ({ profile }: { profile: Profile }) => (
           {profile.summary}
         </p>
       </header>
-      <CodeCard />
+      <div data-reveal>
+        <CodeCard />
+      </div>
     </div>
 
     <div className='mt-12 flex flex-col gap-8 md:flex-row md:flex-wrap md:items-center md:justify-between xl:mt-30'>
       <ul className='flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-x-12 sm:gap-y-6'>
         {profile.stats.map((stat) => (
-          <li key={stat.value}>
+          <li key={stat.value} data-reveal>
             <Stat value={stat.value} label={stat.label} />
           </li>
         ))}

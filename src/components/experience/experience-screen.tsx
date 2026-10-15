@@ -49,6 +49,7 @@ export const ExperienceScreen = ({ jobs }: { jobs: Job[] }) => (
           return (
             <li
               key={job.period}
+              data-reveal
               className={cn(
                 'flex items-center board:h-124 board:justify-end',
                 i % 2 === 0 ? 'board:flex-col-reverse' : 'board:flex-col',

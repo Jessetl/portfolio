@@ -8,7 +8,7 @@ import { Chip } from '@/components/ui/chip';
  * cuando va apilado). En Penpot es un placeholder: "reemplazar con tu foto".
  */
 export const Portrait = ({ location }: { location: string }) => (
-  <div className='relative ml-10 max-w-115 pr-6 pb-6 xl:ml-0'>
+  <div data-reveal className='relative ml-10 max-w-115 pr-6 pb-6 xl:ml-0'>
     <div
       aria-hidden
       className='absolute top-6 right-0 bottom-0 left-6 rounded-[20px] border border-border/60'
