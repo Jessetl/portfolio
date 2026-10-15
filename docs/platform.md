@@ -11,7 +11,7 @@ para llevar a un reclutador o cliente a una acción, y los datos de uso deciden 
 > en el entorno de despliegue. Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame`, `Stat`,
 > `IconBox`, los íconos de marca y la superficie de tarjeta `cardSurface`. El detalle de proyecto es un modal sobre
 > `/proyectos`, como en el prototipo de Penpot; el contenido de los cuatro detalles sale del perfil profesional y solo
-> el portal de cotización tiene ilustración en el detalle. Falta el PDF del CV (`public/cv-jesus-matute.pdf`). El retrato de Sobre mí es el placeholder de Penpot
+> el portal de cotización tiene ilustración en el detalle. El CV se descarga desde `public/cv-jesus-matute.pdf`. El retrato de Sobre mí es el placeholder de Penpot
 > hasta tener la foto. Las páginas 404 (08) y de error (09) y el ícono `</JM>` (`src/app/icon.png` y `apple-icon.png`) salen de Penpot.
 
 ## 1. Propósito
