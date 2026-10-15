@@ -7,8 +7,8 @@ para llevar a un reclutador o cliente a una acción, y los datos de uso deciden 
 > `docs/skills/`; la configuración SSG y la librería de analítica están aplicadas. Hay layout responsive (header,
 > footer, menú móvil y tokens de Penpot), una ruta por pantalla, la intro animada (00) y las pantallas de Inicio (01),
 > Sobre mí (02), Stack (03), Proyectos (04, grilla y filtro), Experiencia (05) y Contacto (06, con su estado 07 ·
-> Mensaje enviado) completas. El formulario envía con una Server Action a un webhook: configura `CONTACT_WEBHOOK_URL`
-> en el entorno de despliegue. Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame`, `Stat`,
+> Mensaje enviado) completas. El formulario envía con una Server Action por Resend, con campo trampa y Cloudflare
+> Turnstile invisible contra spam: configura sus variables (tabla de despliegue). Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame`, `Stat`,
 > `IconBox`, los íconos de marca y la superficie de tarjeta `cardSurface`. El detalle de proyecto es un modal sobre
 > `/proyectos`, como en el prototipo de Penpot; el contenido de los cuatro detalles sale del perfil profesional y solo
 > el portal de cotización tiene ilustración en el detalle. El CV se descarga desde `public/cv-jesus-matute.pdf`. El retrato de Sobre mí es el placeholder de Penpot
@@ -67,7 +67,7 @@ Clean Architecture: las dependencias apuntan hacia adentro. Las reglas completas
 ```
 app/                         borde: rutas, layouts, metadata, Server Actions
   components/ hooks/ lib/    UI: secciones del diseño, CTAs, analítica, animación
-  infrastructure/            adaptadores: contenido, webhook de contacto, env, container
+  infrastructure/            adaptadores: contenido, Resend, Turnstile, env, container
     core/application/        casos de uso + puertos
       core/domain/           entidades y reglas puras
 src/content/                 datos del portfolio: perfil, proyectos, experiencia, stack
@@ -101,7 +101,8 @@ Cada ruta ── carga ─► GA4 page_view (medición mejorada): embudo del rec
 ```
 
 **Contacto.** Formulario (`useActionState`) → `sendContactAction` → `sendContactMessage` (el dominio valida) →
-puerto `MessageSender` → webhook.
+puerto `HumanVerifier` (Turnstile) → puerto `MessageSender` (Resend). El campo trampa y el captcha frenan el spam antes
+de enviar; a Resend solo llega un mensaje válido.
 
 ### Configuración y despliegue
 
@@ -110,11 +111,15 @@ puerto `MessageSender` → webhook.
 - `pnpm build` solo puede mostrar rutas `○ (Static)` o `● (SSG)`. El root layout tiene `dynamic = 'error'`.
 - Variables de entorno:
 
-| Variable              | Uso                                    | Cuándo                       |
-| --------------------- | -------------------------------------- | ---------------------------- |
-| `CONTACT_WEBHOOK_URL` | Destino de los mensajes del formulario | Siempre que se quiera enviar |
-| `GA_MEASUREMENT_ID`   | GA4                                    | Solo producción              |
-| `CLARITY_PROJECT_ID`  | Microsoft Clarity                      | Solo producción              |
+| Variable               | Uso                                                                 | Cuándo                       |
+| ---------------------- | ------------------------------------------------------------------- | ---------------------------- |
+| `RESEND_API_KEY`       | Envío de los mensajes del formulario                                | Siempre que se quiera enviar |
+| `CONTACT_TO_EMAIL`     | Dónde llegan; con el remitente de prueba, el email de tu cuenta     | Siempre que se quiera enviar |
+| `CONTACT_FROM_EMAIL`   | Remitente; por defecto `Portfolio <onboarding@resend.dev>`          | Al verificar un dominio      |
+| `TURNSTILE_SITE_KEY`   | Captcha invisible (pública; se lee en el build)                     | Siempre que se quiera enviar |
+| `TURNSTILE_SECRET_KEY` | Verificación del captcha en el servidor                             | Siempre que se quiera enviar |
+| `GA_MEASUREMENT_ID`    | GA4                                                                 | Solo producción              |
+| `CLARITY_PROJECT_ID`   | Microsoft Clarity                                                   | Solo producción              |
 
 - GA4 y Clarity usan cookies: con tráfico del EEE o el Reino Unido, se cargan solo después del consentimiento.
 

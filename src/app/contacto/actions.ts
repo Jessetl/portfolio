@@ -22,10 +22,15 @@ export const sendContactAction = async (
   };
 
   try {
-    const result = await sendContactMessage(values);
-    return result.ok
-      ? { status: 'sent', name: result.value.name, email: result.value.email }
-      : { status: 'invalid', errors: result.errors, values };
+    const result = await sendContactMessage(values, {
+      trap: text('website'),
+      token: text('cf-turnstile-response'),
+    });
+    if (result.ok)
+      return { status: 'sent', name: result.value.name, email: result.value.email };
+    // Spam: el mismo error genérico, sin pistas para el bot.
+    if ('spam' in result) return { status: 'error', values };
+    return { status: 'invalid', errors: result.errors, values };
   } catch (error) {
     console.error('sendContactAction', error);
     return { status: 'error', values };

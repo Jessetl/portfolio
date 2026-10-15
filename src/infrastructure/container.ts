@@ -1,7 +1,9 @@
 import 'server-only';
 
 import { makeSendContactMessage } from '@/core/application/contact/send-contact-message';
-import { webhookMessageSender } from '@/infrastructure/contact/webhook-message-sender';
+import { resendMessageSender } from '@/infrastructure/contact/resend-message-sender';
+import { turnstileVerifier } from '@/infrastructure/contact/turnstile-verifier';
+import { env } from '@/infrastructure/env';
 import { jsonExperienceRepository } from '@/infrastructure/experience/json-experience-repository';
 import { jsonProfileRepository } from '@/infrastructure/profile/json-profile-repository';
 import { jsonProjectRepository } from '@/infrastructure/projects/json-project-repository';
@@ -14,5 +16,8 @@ export const getStack = jsonStackRepository.get;
 export const listProjects = jsonProjectRepository.list;
 export const listJobs = jsonExperienceRepository.list;
 export const sendContactMessage = makeSendContactMessage({
-  sender: webhookMessageSender,
+  sender: resendMessageSender,
+  verifier: turnstileVerifier,
 });
+// Clave pública del captcha: la página se la pasa al formulario.
+export const getTurnstileSiteKey = env.turnstileSiteKey;

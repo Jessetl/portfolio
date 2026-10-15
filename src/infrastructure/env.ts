@@ -9,5 +9,12 @@ const required = (name: string): string => {
 };
 
 export const env = {
-  contactWebhookUrl: () => required('CONTACT_WEBHOOK_URL'),
+  resendApiKey: () => required('RESEND_API_KEY'),
+  // Con el remitente de prueba de Resend, solo llega al email de tu cuenta.
+  contactToEmail: () => required('CONTACT_TO_EMAIL'),
+  contactFromEmail: () =>
+    process.env.CONTACT_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>',
+  turnstileSecretKey: () => required('TURNSTILE_SECRET_KEY'),
+  // Pública: va al navegador. Sin ella no se dibuja el captcha y el envío falla.
+  turnstileSiteKey: () => process.env.TURNSTILE_SITE_KEY ?? '',
 };

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { ContactScreen } from '@/components/contact/contact-screen';
 import { ScreenTransition } from '@/components/motion/screen-transition';
-import { getProfile } from '@/infrastructure/container';
+import { getProfile, getTurnstileSiteKey } from '@/infrastructure/container';
 
 import { sendContactAction } from './actions';
 
@@ -17,7 +17,11 @@ const ContactPage = async () => {
 
   return (
     <ScreenTransition>
-      <ContactScreen profile={profile} action={sendContactAction} />
+      <ContactScreen
+        profile={profile}
+        action={sendContactAction}
+        turnstileSiteKey={getTurnstileSiteKey()}
+      />
     </ScreenTransition>
   );
 };

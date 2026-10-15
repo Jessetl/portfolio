@@ -5,18 +5,31 @@ import {
   type ContactMessageInput,
 } from '@/core/domain/contact/contact-message';
 
-import type { MessageSender } from './ports';
+import type { HumanVerifier, MessageSender } from './ports';
 
 export type SendContactMessageResult =
   | { ok: true; value: ContactMessage }
-  | { ok: false; errors: ContactMessageError[] };
+  | { ok: false; errors: ContactMessageError[] }
+  | { ok: false; spam: true };
 
-// Un fallo del envío es inesperado: se lanza y lo captura la Server Action.
+/**
+ * Antispam: el campo trampa (invisible para personas) debe llegar vacío y el
+ * captcha, aprobado. Se valida antes del captcha para no consultarlo con un
+ * formulario inválido. Un fallo del envío es inesperado: se lanza y lo
+ * captura la Server Action.
+ */
 export const makeSendContactMessage =
-  ({ sender }: { sender: MessageSender }) =>
-  async (input: ContactMessageInput): Promise<SendContactMessageResult> => {
+  ({ sender, verifier }: { sender: MessageSender; verifier: HumanVerifier }) =>
+  async (
+    input: ContactMessageInput,
+    { trap, token }: { trap: string; token: string },
+  ): Promise<SendContactMessageResult> => {
+    if (trap) return { ok: false, spam: true };
+
     const message = createContactMessage(input);
     if (!message.ok) return message;
+
+    if (!(await verifier.verify(token))) return { ok: false, spam: true };
 
     await sender.send(message.value);
     return message;

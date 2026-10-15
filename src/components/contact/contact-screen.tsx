@@ -15,12 +15,14 @@ import { ContactFlow, type ContactFormState } from './contact-flow';
 export const ContactScreen = ({
   profile,
   action,
+  turnstileSiteKey,
 }: {
   profile: Profile;
   action: (
     state: ContactFormState,
     formData: FormData,
   ) => Promise<ContactFormState>;
+  turnstileSiteKey: string;
 }) => {
   const { linkedin, github } = profile.links;
   const channels = [
@@ -34,6 +36,7 @@ export const ContactScreen = ({
     <div className='pt-8 pb-12 xl:pt-12'>
       <ContactFlow
         action={action}
+        turnstileSiteKey={turnstileSiteKey}
         info={
           <div>
             <ScreenHeading

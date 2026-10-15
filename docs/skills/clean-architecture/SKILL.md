@@ -202,7 +202,7 @@ Recorre las preguntas en orden; la primera respuesta afirmativa decide:
 | Animar la barra de dominio de 0 a n %          | `components/stack/` + `components/motion/`                                                        |
 | Validar el formulario de contacto              | `core/domain/contact/` (lo invoca el caso de uso)                                                 |
 | Enviar el mensaje (email o webhook)            | `infrastructure/contact/` implementa `MessageSender`                                              |
-| Leer `CONTACT_WEBHOOK_URL`                     | `infrastructure/env.ts`                                                                           |
+| Leer `RESEND_API_KEY`                          | `infrastructure/env.ts`                                                                           |
 | Mostrar "Mensaje enviado"                      | La action devuelve `{ status: 'sent' }` (o hace `redirect`); un componente de `contact/` lo pinta |
 | Overlay de detalle de proyecto                 | `components/projects/` (`'use client'`, Sheet de shadcn)                                          |
 | Efecto de escritura de la terminal de la intro | `components/intro/`                                                                               |

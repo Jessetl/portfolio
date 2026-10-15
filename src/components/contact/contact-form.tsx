@@ -15,6 +15,7 @@ import {
 import { cn } from '@/lib/utils';
 
 import type { ContactFormState } from './contact-flow';
+import { Turnstile } from './turnstile';
 
 const projectTypeLabels: Record<ProjectType, string> = {
   'web-app': 'Aplicación web',
@@ -60,10 +61,12 @@ export const ContactForm = ({
   action,
   pending,
   state,
+  turnstileSiteKey,
 }: {
   action: (formData: FormData) => void;
   pending: boolean;
   state: ContactFormState;
+  turnstileSiteKey: string;
 }) => {
   const values = 'values' in state ? state.values : undefined;
   const [length, setLength] = useState(values?.body.length ?? 0);
@@ -148,6 +151,16 @@ export const ContactForm = ({
           </div>
         </Field>
       </div>
+
+      {/* Antispam sin interfaz: campo trampa (oculto también para lectores de
+          pantalla; los bots lo llenan) y captcha invisible. */}
+      <div aria-hidden className='sr-only'>
+        <label>
+          Sitio web
+          <input name='website' tabIndex={-1} autoComplete='off' />
+        </label>
+      </div>
+      {turnstileSiteKey && <Turnstile siteKey={turnstileSiteKey} resetKey={state} />}
 
       {state.status === 'invalid' && (
         <ul role='alert' className='mt-4 text-caption text-muted-foreground'>

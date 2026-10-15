@@ -27,12 +27,14 @@ export type ContactFormState =
 export const ContactFlow = ({
   info,
   action,
+  turnstileSiteKey,
 }: {
   info: ReactNode;
   action: (
     state: ContactFormState,
     formData: FormData,
   ) => Promise<ContactFormState>;
+  turnstileSiteKey: string;
 }) => {
   const [state, formAction, pending] = useActionState(action, {
     status: 'idle',
@@ -51,7 +53,12 @@ export const ContactFlow = ({
     <ViewTransition key='form' exit='form-dissolve' default='none'>
       <div className='grid gap-12 xl:grid-cols-[minmax(0,1fr)_600px] xl:gap-10'>
         {info}
-        <ContactForm action={formAction} pending={pending} state={state} />
+        <ContactForm
+          action={formAction}
+          pending={pending}
+          state={state}
+          turnstileSiteKey={turnstileSiteKey}
+        />
       </div>
     </ViewTransition>
   );
