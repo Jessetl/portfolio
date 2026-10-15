@@ -123,7 +123,7 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 - `next.config.ts`: sin `cacheComponents` ni `partialPrefetching` (esta requiere la primera), y con
   `images.formats: ['image/avif', 'image/webp']`.
 - Root layout: `export const dynamic = 'error'`. El build falla si algo vuelve dinámica una ruta.
-- Rutas con parámetros (`/proyectos/[slug]`): `generateStaticParams` + `export const dynamicParams = false`. Un slug
+- Rutas con parámetros, si se agregan: `generateStaticParams` + `export const dynamicParams = false`. Un parámetro
   desconocido da 404 y nunca se renderiza en runtime.
 - Prohibido en páginas y layouts: `cookies()`, `headers()`, `searchParams`, `fetch` con `cache: 'no-store'` o
   `revalidate: 0`, y las APIs de Cache Components (`'use cache'`, `cacheLife`, `cacheTag`, `ensureStatic`).
@@ -141,19 +141,15 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 /proyectos           04 · Proyectos
 /experiencia         05 · Experiencia
 /contacto            06 · Contacto
-/proyectos/[slug]    caso de estudio prerenderizado: indexable y compartible
-                     desde /proyectos se abre como overlay (ruta interceptada @modal/(.)proyectos/[slug])
 ```
 
 - Una ruta por pantalla, como el prototipo de Penpot (flujo en Z). Cada una tiene su propio `title`, `description`
   y `h1`. La lista vive en `src/components/site/screens.ts`, que comparten la nav del header y el footer.
-- Cada caso posiciona búsquedas específicas ("portal de cotización B2B Next.js") y se comparte en LinkedIn con su
-  propia URL.
+- El detalle de proyecto es un modal sobre `/proyectos` (en el prototipo de Penpot, `open-overlay`), sin URL propia:
+  no se indexa por separado ni se comparte con enlace. Por eso el título, el resumen y las tecnologías de cada caso
+  también están en la tarjeta, en el HTML de `/proyectos`.
 - "Mensaje enviado" (07) es un estado del formulario de `/contacto`, no una ruta indexable. La intro (00) es un
   overlay de la primera visita.
-- El overlay de casos debe cerrarse también al navegar a otra ruta (por ejemplo, "Hablemos de este proyecto" →
-  `/contacto`): el slot `@modal` necesita una página que coincida con esa ruta y devuelva `null` (catch-all, ver la
-  guía de parallel routes). Verifica con `pnpm build` que todo siga siendo SSG.
 
 ## 6. Checklist SEO por página
 
@@ -165,11 +161,10 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 - [ ] `alternates.canonical` en cada página, nunca en el layout: una canonical heredada marcaría todas las páginas como
       copia del inicio.
 - [ ] `openGraph` del hijo reemplaza al del layout, no se fusiona: repite lo necesario.
-- [ ] `src/app/opengraph-image.png` (1200 × 630). Opcional: `opengraph-image.tsx` por caso con `next/og`.
+- [ ] `src/app/opengraph-image.png` (1200 × 630).
 - [ ] JSON-LD `Person` en el inicio (nombre, rol, URL, `sameAs` con LinkedIn y GitHub), con `<` escapado.
-- [ ] `sitemap.ts` (las 6 rutas + casos) y `robots.ts` apuntando al sitemap. Google ignora `priority` y `changeFrequency`;
+- [ ] `sitemap.ts` (las 6 rutas) y `robots.ts` apuntando al sitemap. Google ignora `priority` y `changeFrequency`;
       `lastModified` solo si es real.
-- [ ] Cada caso de estudio tiene URL propia prerenderizada (`generateStaticParams`).
 - [ ] Imágenes con `next/image`, `alt` descriptivo y `width`/`height` (o `fill` + `sizes`). La imagen LCP, si la hay,
       con `loading="eager"` o `fetchPriority="high"`: en Next 16 `priority` está deprecado.
 - [ ] Fuentes con `next/font` (Fraunces, IBM Plex Sans, JetBrains Mono): sin saltos de layout ni peticiones a Google
@@ -183,7 +178,7 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 | ----------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------ |
 | CTA hecho con `<div onClick>`                                     | SEO + accesibilidad                      | `<Link>` o `<a href>`                                  |
 | Solo el texto "Ver caso" es clicable                              | UX (dead clicks)                         | Toda la tarjeta es el enlace                           |
-| Detalle de proyecto solo en un overlay del cliente                | SEO: no indexable                        | Ruta `/proyectos/[slug]` + intercepción                |
+| Información clave solo dentro del modal de detalle                | SEO: no indexable                        | Título, resumen y tecnologías también en la tarjeta    |
 | `useSearchParams` o `cookies()` en una página                     | Rompe el SSG (el build falla)            | Moverlo a un Client Component o eliminarlo             |
 | Analítica con `beforeInteractive` o `<script>` manual en `<head>` | CWV                                      | `@next/third-parties` y `next/script` con `lazyOnload` |
 | `onClick={() => sendGAEvent(...)}` en cada botón                  | JS y Client Components de más            | `ctaAttrs` + `CtaTracker`                              |

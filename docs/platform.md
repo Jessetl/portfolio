@@ -5,9 +5,14 @@ para llevar a un reclutador o cliente a una acción, y los datos de uso deciden 
 
 > **Estado (2026-10-14):** el diseño está completo en Penpot; las reglas de arquitectura y de SEO/UX están en
 > `docs/skills/`; la configuración SSG y la librería de analítica están aplicadas. Hay layout responsive (header,
-> footer, menú móvil y tokens de Penpot), una ruta por pantalla, la intro animada (00) y la pantalla de Inicio (01)
-> completa. Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame` y `Stat`. Falta el contenido de
-> las pantallas 02–06.
+> footer, menú móvil y tokens de Penpot), una ruta por pantalla, la intro animada (00) y las pantallas de Inicio (01),
+> Sobre mí (02), Stack (03), Proyectos (04, grilla y filtro), Experiencia (05) y Contacto (06, con su estado 07 ·
+> Mensaje enviado) completas. El formulario envía con una Server Action a un webhook: configura `CONTACT_WEBHOOK_URL`
+> en el entorno de despliegue. Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame`, `Stat`,
+> `IconBox`, los íconos de marca y la superficie de tarjeta `cardSurface`. El detalle de proyecto es un modal sobre
+> `/proyectos`, como en el prototipo de Penpot; el contenido de los cuatro detalles sale del perfil profesional y solo
+> el portal de cotización tiene ilustración en el detalle. Falta el PDF del CV (`public/cv-jesus-matute.pdf`). El retrato de Sobre mí es el placeholder de Penpot
+> hasta tener la foto.
 
 ## 1. Propósito
 
@@ -77,8 +82,7 @@ src/content/                 datos del portfolio: perfil, proyectos, experiencia
 /proyectos           04 · Proyectos
 /experiencia         05 · Experiencia
 /contacto            06 · Contacto ("Mensaje enviado" es un estado del formulario)
-/proyectos/[slug]    caso de estudio prerenderizado; desde /proyectos se abre como overlay (ruta interceptada)
-/sitemap.xml         las 6 rutas + casos
+/sitemap.xml         las 6 rutas
 /robots.txt
 ```
 

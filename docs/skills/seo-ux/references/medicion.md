@@ -12,8 +12,8 @@ Contenido:
 
 1. Verifica el dominio (registro DNS) o con `metadata.verification.google` en el root layout.
 2. Envía `https://<dominio>/sitemap.xml`.
-3. Revisa **Rendimiento** (consultas, impresiones, CTR y posición media) e **Indexación de páginas** (que el inicio y
-   cada `/proyectos/[slug]` estén indexados).
+3. Revisa **Rendimiento** (consultas, impresiones, CTR y posición media) e **Indexación de páginas** (que las 6 rutas estén
+   indexadas).
 4. **Core Web Vitals** muestra datos de campo de usuarios reales; Lighthouse solo da datos de laboratorio.
 
 ### GA4 (eventos de negocio)
