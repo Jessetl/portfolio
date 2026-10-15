@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -102,6 +103,7 @@ export const MobileMenu = ({ cvHref }: { cvHref: string }) => {
             <a
               href={cvHref}
               download
+              {...ctaAttrs('cv', 'header')}
               className={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
             >
               <Download aria-hidden />

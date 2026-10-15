@@ -21,7 +21,7 @@ Contenido:
 1. Crea una propiedad y un flujo web. El ID `G-…` va en la variable `GA_MEASUREMENT_ID`, solo en producción.
 2. Deja activa la **medición mejorada**: vistas de página con cambios de historial, clics salientes y descargas de
    archivos.
-3. Registra las **dimensiones personalizadas** de ámbito evento: `cta`, `location`, `project`, `section` (Admin →
+3. Registra las **dimensiones personalizadas** de ámbito evento: `cta`, `location`, `project` (Admin →
    Definiciones personalizadas). Sin ese registro, los parámetros no aparecen en los informes.
 4. Marca como **eventos clave**: `generate_lead` y `file_download` (el CV es el único PDF).
 5. Prueba en **DebugView** antes de dar por buena la implementación.

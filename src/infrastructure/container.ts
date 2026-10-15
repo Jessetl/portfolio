@@ -21,3 +21,7 @@ export const sendContactMessage = makeSendContactMessage({
 });
 // Clave pública del captcha: la página se la pasa al formulario.
 export const getTurnstileSiteKey = env.turnstileSiteKey;
+export const getAnalyticsIds = () => ({
+  ga: env.gaMeasurementId(),
+  clarity: env.clarityProjectId(),
+});

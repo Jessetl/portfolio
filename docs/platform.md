@@ -122,7 +122,9 @@ de enviar; a Resend solo llega un mensaje válido.
 | `GA_MEASUREMENT_ID`    | GA4                                                                 | Solo producción              |
 | `CLARITY_PROJECT_ID`   | Microsoft Clarity                                                   | Solo producción              |
 
-- GA4 y Clarity usan cookies: con tráfico del EEE o el Reino Unido, se cargan solo después del consentimiento.
+- Sin banner de cookies: en el EEE, el Reino Unido y Suiza, GA4 corre en Consent Mode denegado (sin cookies) y Clarity,
+  sin señal de consentimiento, tampoco usa cookies. GA4 y Clarity solo cargan si existen sus variables: defínelas
+  únicamente en el entorno Production de Vercel.
 
 ## 5. Ciclo de mejora
 

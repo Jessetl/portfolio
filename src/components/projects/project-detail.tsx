@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { ComponentType } from 'react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
 import { buttonVariants } from '@/components/ui/button';
 import { cardSurface } from '@/components/ui/card';
 import { Chip } from '@/components/ui/chip';
@@ -84,7 +85,11 @@ export const ProjectDetail = ({ project }: { project: Project }) => {
         ))}
       </ul>
       <div className='mt-7.5 border-t border-border/60 pt-6.25'>
-        <Link href='/contacto' className={cn(buttonVariants())}>
+        <Link
+          href='/contacto'
+          {...ctaAttrs('contact', 'project_detail', project.slug)}
+          className={cn(buttonVariants())}
+        >
           Hablemos de este proyecto
           <ArrowRight aria-hidden />
         </Link>

@@ -1,5 +1,6 @@
 import { Download } from 'lucide-react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
 import { CV_HREF } from '@/components/site/cv';
 import { ScreenHeading } from '@/components/site/screen-heading';
 import { buttonVariants } from '@/components/ui/button';
@@ -23,6 +24,7 @@ export const ExperienceScreen = ({ jobs }: { jobs: Job[] }) => (
       <a
         href={CV_HREF}
         download
+        {...ctaAttrs('cv', 'experience')}
         className={cn(
           buttonVariants({ variant: 'outline' }),
           'self-start md:self-auto xl:-mb-1',

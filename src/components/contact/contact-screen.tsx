@@ -1,5 +1,6 @@
 import { Mail, MapPin } from 'lucide-react';
 
+import { ctaAttrs, type Cta } from '@/components/analytics/cta';
 import { ScreenHeading } from '@/components/site/screen-heading';
 import { Github, Linkedin } from '@/components/ui/brand-icons';
 import { Chip } from '@/components/ui/chip';
@@ -26,9 +27,9 @@ export const ContactScreen = ({
 }) => {
   const { linkedin, github } = profile.links;
   const channels = [
-    { label: 'Email', icon: Mail, value: profile.email, href: `mailto:${profile.email}` },
-    { label: 'LinkedIn', icon: Linkedin, value: linkedin.label, href: linkedin.href, external: true },
-    { label: 'GitHub', icon: Github, value: github.label, href: github.href, external: true },
+    { label: 'Email', icon: Mail, value: profile.email, href: `mailto:${profile.email}`, cta: 'email' },
+    { label: 'LinkedIn', icon: Linkedin, value: linkedin.label, href: linkedin.href, external: true, cta: 'linkedin' },
+    { label: 'GitHub', icon: Github, value: github.label, href: github.href, external: true, cta: 'github' },
     { label: 'Ubicación', icon: MapPin, value: profile.location },
   ];
 
@@ -52,7 +53,7 @@ export const ContactScreen = ({
               horas, normalmente mucho antes.
             </p>
             <ul className='mt-12.5 space-y-4'>
-              {channels.map(({ label, icon, value, href, external }) => (
+              {channels.map(({ label, icon, value, href, external, cta }) => (
                 <li key={label} data-reveal className='flex items-start gap-4 py-1'>
                   <IconBox icon={icon} />
                   <div className='min-w-0'>
@@ -62,6 +63,7 @@ export const ContactScreen = ({
                     {href ? (
                       <a
                         href={href}
+                        {...ctaAttrs(cta as Cta, 'contact')}
                         {...(external && {
                           target: '_blank',
                           rel: 'noopener noreferrer',

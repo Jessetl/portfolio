@@ -4,6 +4,8 @@ import { ArrowUp, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
+import { track } from '@/components/analytics/track';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -21,7 +23,11 @@ const rings = [
  */
 export const MessageSent = ({ name, email }: { name: string; email: string }) => {
   const heading = useRef<HTMLHeadingElement>(null);
-  useEffect(() => heading.current?.focus(), []);
+  useEffect(() => {
+    heading.current?.focus();
+    // Lead: solo el tipo de formulario, nunca el nombre ni el email.
+    track({ name: 'generate_lead', params: { form: 'contact' } });
+  }, []);
 
   return (
     <section id='message-sent' className='flex flex-col items-center text-center'>
@@ -59,6 +65,7 @@ export const MessageSent = ({ name, email }: { name: string; email: string }) =>
         <Link
           href='/proyectos'
           transitionTypes={['step-right']}
+          {...ctaAttrs('projects', 'sent')}
           className={cn(buttonVariants({ variant: 'outline' }))}
         >
           Ver proyectos

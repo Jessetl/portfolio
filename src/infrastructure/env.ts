@@ -17,4 +17,7 @@ export const env = {
   turnstileSecretKey: () => required('TURNSTILE_SECRET_KEY'),
   // Pública: va al navegador. Sin ella no se dibuja el captcha y el envío falla.
   turnstileSiteKey: () => process.env.TURNSTILE_SITE_KEY ?? '',
+  // Solo en producción: sin ellas no se carga la analítica.
+  gaMeasurementId: () => process.env.GA_MEASUREMENT_ID,
+  clarityProjectId: () => process.env.CLARITY_PROJECT_ID,
 };

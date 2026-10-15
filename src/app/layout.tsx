@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { Fraunces, IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 
+import { AnalyticsScripts } from '@/components/analytics/analytics-scripts';
+import { CtaTracker } from '@/components/analytics/cta-tracker';
 import { introScript } from '@/components/intro/intro-script';
 import { RevealOnScroll } from '@/components/motion/reveal-on-scroll';
 import { revealScript } from '@/components/motion/reveal-script';
 import { ScreenFooter } from '@/components/site/screen-footer';
 import { SiteHeader } from '@/components/site/site-header';
-import { getProfile } from '@/infrastructure/container';
+import { getAnalyticsIds, getProfile } from '@/infrastructure/container';
 
 import './globals.css';
 
@@ -42,7 +44,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-const RootLayout = ({ children }: LayoutProps<'/'>) => (
+const RootLayout = ({ children }: LayoutProps<'/'>) => {
+  const { ga, clarity } = getAnalyticsIds();
+
+  return (
   // suppressHydrationWarning: los scripts de la intro y del reveal marcan <html> antes de hidratar.
   <html
     lang='es'
@@ -60,8 +65,11 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => (
       </main>
       <ScreenFooter />
       <RevealOnScroll />
+      <CtaTracker />
+      <AnalyticsScripts gaId={ga} clarityId={clarity} />
     </body>
   </html>
-);
+  );
+};
 
 export default RootLayout;

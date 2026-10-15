@@ -84,6 +84,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           </p>
           <h2 className='mt-1.75 font-heading text-card-title-xl font-medium'>
             <ProjectDialog
+              slug={project.slug}
               title={project.title}
               // Como en el board del detalle: sector · subsector · años (la
               // empresa, si la hay, va en el subtítulo).

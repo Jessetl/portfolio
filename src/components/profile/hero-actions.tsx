@@ -1,6 +1,7 @@
 import { ArrowRight, Mail } from 'lucide-react';
 import Link from 'next/link';
 
+import { ctaAttrs } from '@/components/analytics/cta';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -12,6 +13,7 @@ export const HeroActions = () => (
     <Link
       href='/contacto'
       transitionTypes={['push-up']}
+      {...ctaAttrs('contact', 'hero')}
       className={cn(buttonVariants({ variant: 'outline' }))}
     >
       <Mail aria-hidden />
@@ -20,6 +22,7 @@ export const HeroActions = () => (
     <Link
       href='/proyectos'
       transitionTypes={['push-up']}
+      {...ctaAttrs('projects', 'hero')}
       className={cn(buttonVariants())}
     >
       Ver proyectos

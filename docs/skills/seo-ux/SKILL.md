@@ -112,8 +112,10 @@ navegación.
 - Sin datos personales en los eventos (ni el nombre ni el email del formulario): las políticas de GA4 lo prohíben.
 - Los scripts se cargan solo en producción y con ID configurado; nunca con `beforeInteractive`. El handler de clic
   solo lee `dataset` y envía (cuida el INP).
-- **Consentimiento:** GA4 y Clarity usan cookies. Con visitas del EEE o el Reino Unido, no los cargues antes del
-  consentimiento (Consent Mode de Google y la API de consentimiento de Clarity).
+- **Consentimiento:** no hay banner (no existe en Penpot). En el EEE, el Reino Unido y Suiza, GA4 arranca con
+  Consent Mode denegado (`analytics_storage` y `ad_*`: solo pings sin cookies) y Clarity, sin señal de consentimiento,
+  funciona sin cookies. Fuera de esas regiones, GA4 usa cookies de analítica; `ad_*` queda denegado siempre. Un banner
+  para pedir consentimiento necesita su diseño en Penpot primero.
 
 ## 5. SSG con el modelo de caché anterior ("Legacy")
 
@@ -185,5 +187,5 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 | Canonical en el layout                                            | SEO: todas las páginas apuntan al inicio | Canonical por página                                   |
 | Intro que retiene el hero 2,5 s                                   | LCP + rebote                             | Overlay saltable sobre HTML ya renderizado             |
 | Imagen sin dimensiones                                            | CLS                                      | `next/image` con `width`/`height`                      |
-| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `project`, `section`           |
+| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `project`, `form`              |
 | Dos CTAs primarios en la misma vista                              | UX                                       | Uno primario; el resto, secundario                     |

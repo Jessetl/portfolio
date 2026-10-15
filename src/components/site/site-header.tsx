@@ -1,5 +1,6 @@
 import { Download } from 'lucide-react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -27,6 +28,7 @@ export const SiteHeader = () => (
           <a
             href={CV_HREF}
             download
+            {...ctaAttrs('cv', 'header')}
             className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
           >
             <Download aria-hidden />

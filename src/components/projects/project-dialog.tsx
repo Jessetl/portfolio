@@ -4,6 +4,8 @@ import { Dialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import type { ReactNode } from 'react';
 
+import { ctaAttrs } from '@/components/analytics/cta';
+
 /**
  * Overlay · Detalle de proyecto, como lo conecta el prototipo de Penpot: clic
  * en la tarjeta → panel de 600 px arriba a la derecha con fondo, entra
@@ -12,16 +14,20 @@ import type { ReactNode } from 'react';
  * es el título de la tarjeta, estirado sobre toda la tarjeta con ::after.
  */
 export const ProjectDialog = ({
+  slug,
   overline,
   title,
   children,
 }: {
+  slug: string;
   overline: string;
   title: string;
   children: ReactNode;
 }) => (
   <Dialog.Root>
-    <Dialog.Trigger className='cursor-pointer text-left after:absolute after:inset-0 after:rounded-[16px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring'>
+    <Dialog.Trigger
+      {...ctaAttrs('case_study', 'projects', slug)}
+      className='cursor-pointer text-left after:absolute after:inset-0 after:rounded-[16px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring'>
       {title}
     </Dialog.Trigger>
     <Dialog.Portal>
