@@ -34,7 +34,9 @@ export const transitionTo = (
 ) => {
   const a = zFlow[from];
   const b = zFlow[to];
-  if (!a || !b || from === to) return undefined;
+  if (!b || from === to) return undefined;
+  // Desde 08 · No encontrada (fuera del flujo en Z), Penpot usa dissolve.
+  if (!a) return ['dissolve'];
   if (a[0] !== b[0]) return [b[0] > a[0] ? 'push-up' : 'push-down'];
   return [`${kind === 'step' ? 'step' : 'push'}-${b[1] > a[1] ? 'left' : 'right'}`];
 };
