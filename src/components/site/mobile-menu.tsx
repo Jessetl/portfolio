@@ -18,10 +18,9 @@ const iconButton = cn(
 );
 
 /**
- * Menú móvil (< 768 px): overlay a pantalla completa. Excepción aprobada sin
- * board en Penpot (2026-10-14): usa solo tokens y estilos existentes. Es un
- * diálogo modal: atrapa el foco, cierra con Esc, devuelve el foco al botón y
- * bloquea el scroll de la página.
+ * Menú móvil (< 768 px): overlay a pantalla completa, board `Mobile · Menú`
+ * en Penpot. Es un diálogo modal: atrapa el foco, cierra con Esc, devuelve el
+ * foco al botón y bloquea el scroll de la página.
  */
 export const MobileMenu = ({ cvHref }: { cvHref: string }) => {
   const pathname = usePathname();

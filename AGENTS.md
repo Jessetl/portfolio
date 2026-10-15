@@ -18,8 +18,10 @@ Las skills están enlazadas en `.claude/skills/`, así que Claude Code las carga
 
 Penpot es la única fuente de diseño. **Si algo visible no está en Penpot, no se crea.**
 
-- **Dónde:** team _Me_ → proyecto _portfolio_ → archivo _Portolio_ (escrito así en Penpot) → página _Page 1_. Boards:
-  `00 · Intro` a `07 · Mensaje enviado`, `Overlay · Detalle de proyecto`, `Motion & Flow spec` y `Z-Flow guide`.
+- **Dónde:** team _Me_ → proyecto _portfolio_ → archivo _Portolio_ (escrito así en Penpot) → página _Page 1_. Boards
+  desktop: `00 · Intro` a `07 · Mensaje enviado`, `Overlay · Detalle de proyecto`, `Motion & Flow spec` y
+  `Z-Flow guide`. Debajo, la fila mobile (375 px): `Mobile · 00 · Intro` a `Mobile · 07 · Mensaje enviado`,
+  `Mobile · Overlay · Detalle de proyecto` y `Mobile · Menú`.
 - **Cómo leerlo:** con el MCP de Penpot (`high_level_overview`, `execute_code`, `export_shape`); el archivo debe estar
   abierto con el plugin MCP conectado. Si no hay acceso, detente y pide que lo conecten: nunca implementes de memoria
   ni "aproximado".
@@ -39,11 +41,10 @@ Reglas:
 5. El movimiento es solo el de `Motion & Flow spec` y `Z-Flow guide`.
 6. shadcn/ui aporta comportamiento y accesibilidad, no estilo: su apariencia se ajusta a Penpot, y no se agrega un
    componente sin equivalente en Penpot.
-7. Penpot solo tiene desktop (pantallas de 1440 × 900; overlay de 600 × 900). En pantallas más chicas se reacomoda lo
-   existente (apilar, cambiar columnas y tamaños) con los mismos tokens. Un elemento nuevo, como un menú móvil,
-   necesita diseño en Penpot primero. Excepción aprobada por el usuario (2026-10-14): el menú móvil (overlay a pantalla
-   completa en `src/components/site/mobile-menu.tsx`) se implementó sin board, solo con tokens y estilos existentes.
-   Si se diseña en Penpot, el código se ajusta al board.
+7. Penpot tiene desktop (pantallas de 1440 × 900; overlay de 600 × 900) y mobile (375 px de ancho, alto según el
+   contenido), incluido el menú móvil (`Mobile · Menú`). Los boards mobile replican el responsive del código a 375 px;
+   entre 375 y 1440 se reacomoda lo existente (apilar, cambiar columnas y tamaños) con los mismos tokens. Un elemento
+   nuevo necesita diseño en Penpot primero.
 8. Estados sin diseño (errores de formulario, carga, 404): reutiliza estilos que ya existen en Penpot, como el texto de
    ayuda del formulario, y avisa que falta su diseño. Nunca inventes un estilo. No crees una página 404 propia hasta
    que exista en Penpot.
