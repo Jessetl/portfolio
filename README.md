@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio · Jesús Matute
 
-## Getting Started
+Portfolio de Jesús Matute, Full-Stack Developer, publicado en [jmatute-dev.com](https://jmatute-dev.com). Se mide con
+GA4 y Microsoft Clarity para mejorarlo según dónde hacen clic los reclutadores.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router, SSG con el modelo de caché anterior), React 19 y TypeScript.
+- Tailwind CSS v4 y shadcn/ui sobre Base UI.
+- Contacto con Resend; antispam con campo trampa y Cloudflare Turnstile.
+- Analítica con GA4 y Microsoft Clarity. Hosting en Vercel.
+
+## Desarrollo
+
+Requiere Node 24 y pnpm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local  # completa las variables
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script       | Qué hace                                                              |
+| ------------ | --------------------------------------------------------------------- |
+| `pnpm dev`   | Servidor de desarrollo en http://localhost:3000                       |
+| `pnpm build` | Build de producción: todas las rutas deben ser `○` (Static) o `●` (SSG) |
+| `pnpm lint`  | ESLint, incluidas las reglas de capas de la arquitectura             |
+| `pnpm test`  | Tests del dominio y de los casos de uso (`node:test`)                 |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Diseño
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Penpot es la única fuente de diseño: team _Me_ → proyecto _portfolio_ → archivo _Portolio_. Si algo visible no está en
+Penpot, no se crea. Las reglas están en [`AGENTS.md`](AGENTS.md).
 
-## Learn More
+## Documentación
 
-To learn more about Next.js, take a look at the following resources:
+- [`AGENTS.md`](AGENTS.md): reglas para trabajar en el proyecto, incluidos los agentes.
+- [`docs/platform.md`](docs/platform.md): propósito, métricas, arquitectura, despliegue y variables de entorno.
+- [`docs/skills/clean-architecture`](docs/skills/clean-architecture/SKILL.md): capas y dónde va cada pieza.
+- [`docs/skills/seo-ux`](docs/skills/seo-ux/SKILL.md): SEO, CTAs y medición.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Despliegue
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel publica producción con cada push a `main`. Las variables van en **Settings → Environment Variables**; las de GA4
+y Clarity, solo en Production. La clave del sitio de Turnstile y los IDs de analítica se leen al compilar: después de
+cambiarlas, haz **Redeploy**.
