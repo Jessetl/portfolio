@@ -52,12 +52,19 @@
   animation-delay: 1900ms;
 }
 
+/* Cursor del board: terminal-bright, 10 × 20 px (8 px de ancho en mobile). */
 .cursor {
   display: inline-block;
-  width: 10px;
+  width: 8px;
   height: 20px;
   vertical-align: middle;
-  background: var(--accent-text);
+  background: var(--terminal-bright);
+}
+
+@media (width >= 48rem) {
+  .cursor {
+    width: 10px;
+  }
 }
 
 /* Sigue al comando mientras se escribe; desaparece cuando empieza la salida. */
