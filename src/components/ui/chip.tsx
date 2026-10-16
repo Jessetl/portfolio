@@ -3,43 +3,39 @@ import type { ReactNode } from 'react';
 
 import { cn } from '@/lib/utils';
 
-// "Chip / …" de Penpot: píldora mono con padding 6/12. El borde es interior
-// (ring inset) como en Penpot, así no suma alto.
-const chipVariants = cva(
-  'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono font-medium text-foreground',
-  {
-    variants: {
-      surface: {
-        outline: 'bg-card ring-1 ring-border ring-inset', // disponible, Enter
-        muted: 'bg-muted', // tags de stack y proyectos
-        card: 'bg-card', // foto-perfil.webp
-        // IA en el flujo de trabajo (Stack). Un ring no puede ser punteado: este
-        // borde sí suma 2 px, como los chips de 29 px del board.
-        dashed: 'border border-dashed border-border/70 bg-card',
-      },
-      size: {
-        default: 'text-chip-lg', // 13px
-        sm: 'text-chip', // 12px
-        xs: 'text-chip-xs', // 11px, "Más reciente"
-      },
+// Chips v2 de Penpot. Los bordes son interiores (ring inset) como en Penpot y
+// no suman alto; el punteado no puede ser un ring, así que ese descuenta 1 px
+// del padding.
+const chipVariants = cva('inline-flex items-center rounded-full', {
+  variants: {
+    variant: {
+      // Tool / … (herramientas, Enter)
+      tool: 'bg-muted px-3 py-1.5 font-mono text-chip text-fg ring-1 ring-line-strong ring-inset',
+      // IA en mi flujo de trabajo
+      dashed: 'border border-dashed border-line-strong px-[11px] py-[5px] font-mono text-chip text-fg',
+      // Disponible, Respondo en < 24 h, Más reciente: con punto que late
+      status: 'gap-2 bg-raised py-[7px] pr-3.5 pl-3 text-small ring-1 ring-line-strong ring-inset',
     },
-    defaultVariants: { surface: 'outline', size: 'default' },
   },
-);
+  defaultVariants: { variant: 'tool' },
+});
 
 export const Chip = ({
   children,
-  dot = false,
-  surface,
-  size,
+  variant,
   className,
 }: {
   children: ReactNode;
-  dot?: boolean;
   className?: string;
 } & VariantProps<typeof chipVariants>) => (
-  <span className={cn(chipVariants({ surface, size }), className)}>
-    {dot && <span aria-hidden className='size-2 rounded-full bg-foreground' />}
+  <span className={cn(chipVariants({ variant }), className)}>
+    {variant === 'status' && (
+      // Punto "Disponible" (spec): pulso de 2 s infinito.
+      <span
+        aria-hidden
+        className='size-2 shrink-0 animate-pulse rounded-full bg-cyan shadow-dot motion-reduce:animate-none'
+      />
+    )}
     {children}
   </span>
 );

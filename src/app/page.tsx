@@ -1,19 +1,39 @@
 import type { Metadata } from 'next';
 
+import { SectionViews } from '@/components/analytics/section-views';
+import { ContactSection } from '@/components/contact/contact-section';
+import { ExperienceSection } from '@/components/experience/experience-section';
 import { Intro } from '@/components/intro/intro';
-import { HomeScreen } from '@/components/profile/home-screen';
-import { ScreenTransition } from '@/components/motion/screen-transition';
-import { getProfile } from '@/infrastructure/container';
+import { About } from '@/components/profile/about';
+import { Hero } from '@/components/profile/hero';
+import { ProjectsSection } from '@/components/projects/projects-section';
+import { SiteFooter } from '@/components/site/site-footer';
+import { StackSection } from '@/components/stack/stack-section';
+import {
+  getProfile,
+  getStack,
+  getTurnstileSiteKey,
+  listJobs,
+  listProjects,
+} from '@/infrastructure/container';
+
+import { sendContactAction } from './actions';
 
 export const metadata: Metadata = { alternates: { canonical: '/' } };
 
-// 00 · Intro (overlay de la primera visita) + 01 · Inicio.
+// Una sola página (v2): intro (overlay de la primera visita) y las secciones con ancla.
 const HomePage = async () => {
-  const profile = await getProfile();
+  const [profile, stack, projects, jobs] = await Promise.all([
+    getProfile(),
+    getStack(),
+    listProjects(),
+    listJobs(),
+  ]);
   const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: profile.name,
+    alternateName: profile.alternateName,
     jobTitle: profile.role,
     url: profile.siteUrl,
     sameAs: [profile.links.linkedin.href, profile.links.github.href],
@@ -28,9 +48,20 @@ const HomePage = async () => {
         }}
       />
       <Intro />
-      <ScreenTransition>
-        <HomeScreen profile={profile} />
-      </ScreenTransition>
+      <main>
+        <Hero profile={profile} />
+        <About profile={profile} />
+        <StackSection stack={stack} />
+        <ProjectsSection projects={projects} />
+        <ExperienceSection jobs={jobs} />
+        <ContactSection
+          profile={profile}
+          action={sendContactAction}
+          turnstileSiteKey={getTurnstileSiteKey()}
+        />
+      </main>
+      <SiteFooter profile={profile} />
+      <SectionViews />
     </>
   );
 };

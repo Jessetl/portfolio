@@ -5,205 +5,174 @@
 /* Sin clase .dark: el diseño es un único tema oscuro y `dark:` nunca aplica. */
 @custom-variant dark (&:is(.dark *));
 
-/* Colores de la librería de Penpot (team Me → portfolio → Portolio). */
+/*
+ * Escaparate de proyectos fijo (Motion & Flow spec): ShowcaseScroll pone
+ * `data-pinned` en la sección de Proyectos desde 1024 px y sin movimiento
+ * reducido; este variant estiliza esa sección y lo que contiene.
+ */
+@custom-variant showcase (&:is([data-pinned], [data-pinned] *));
+
+/* Librería de Penpot, página "Rediseño v2": colores v2 / bg, border, text y accent. */
 :root {
-  --background: #1c1e23; /* bg/background */
-  --foreground: #ffffff; /* text/foreground */
-  --card: #232832; /* surface/card */
-  --card-foreground: #ffffff;
-  --popover: #232832;
-  --popover-foreground: #ffffff;
-  --primary: #0f5fdc; /* brand/accent */
-  --primary-foreground: #ffffff; /* brand/on-accent */
-  --secondary: #2c323d; /* surface/muted */
-  --secondary-foreground: #ffffff;
-  --muted: #2c323d; /* surface/muted */
-  --muted-foreground: #b4b8c0; /* text/muted */
-  --accent: #2c323d;
-  --accent-foreground: #ffffff;
-  --accent-text: #4d8df5; /* brand/accent-text */
-  --border: #3a3e47; /* border/default */
-  --input: #3a3e47;
-  --ring: #4d8df5;
-  --destructive: oklch(0.704 0.191 22.216); /* sin color en Penpot: pendiente de diseño */
-  --radius: 0.625rem; /* 10px, radio de los botones */
+  --base: #08090c; /* bg/base */
+  --raised: #0f1217; /* bg/raised */
+  --muted: #161a21; /* bg/muted */
+  --line: #1e232b; /* border/subtle */
+  --line-strong: #2b313c; /* border/strong */
+  --fg: #f3f5f8; /* text/primary */
+  --fg-muted: #a1a9b6; /* text/secondary */
+  --fg-subtle: #7a8391; /* text/tertiary */
+  --blue: #3a7bff; /* accent/blue */
+  --cyan: #38e1f5; /* accent/cyan */
+  --accent: #6ea6ff; /* accent/text */
+  --on-accent: #05070a; /* accent/on */
+}
 
-  /* Terminal y código: surface/ink y code/key son de la librería; el resto son
-     colores locales del board 00 · Intro. */
-  --ink: #16181d;
-  --terminal-text: #d4d4ce;
-  --terminal-muted: #9a9a95;
-  --terminal-bright: #f3f3f0;
-  --terminal-key: #a8a8a2;
-  --terminal-dot-2: #a5a5a0;
-  --terminal-dot-3: #6e6e69;
-  --terminal-shadow: #111111;
-  --code-string: #f2f2ee; /* code/string */
-  --code-line-number: #5e6470; /* local del board 01 · Inicio */
-
-  /* Locales: degradado del retrato (02) y sombra dura del badge (02) y del formulario (06). */
-  --portrait-highlight: #d9d9d3;
-  --hard-shadow: #0b0c0f;
-  /* Fondo del overlay de detalle (addBackgroundOverlay del prototipo de Penpot). */
-  --backdrop: rgb(0 0 0 / 0.2);
-
-  /* back.out(1.4) de GSAP (Motion & Flow spec) muestreado en 10 tramos. */
-  --ease-back-out: linear(0, 0.384, 0.667, 0.863, 0.986, 1.05, 1.07, 1.061, 1.037, 1.012, 1);
+/* Solo los colores de Penpot: sin la paleta por defecto de Tailwind. */
+@theme {
+  --color-*: initial;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-base: var(--base);
+  --color-raised: var(--raised);
   --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-blue: var(--blue);
+  --color-cyan: var(--cyan);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent-text: var(--accent-text);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-destructive: var(--destructive);
-  --color-ink: var(--ink);
-  --color-terminal-text: var(--terminal-text);
-  --color-terminal-muted: var(--terminal-muted);
-  --color-terminal-bright: var(--terminal-bright);
-  --color-terminal-key: var(--terminal-key);
-  --color-terminal-dot-2: var(--terminal-dot-2);
-  --color-terminal-dot-3: var(--terminal-dot-3);
-  --color-code-string: var(--code-string);
-  --color-code-line-number: var(--code-line-number);
-  --color-portrait-highlight: var(--portrait-highlight);
-  --color-backdrop: var(--backdrop);
-  /* Panel del detalle de proyecto: sombra dura hacia la izquierda. */
-  --shadow-panel: -8px 8px 0 var(--hard-shadow);
-  --shadow-terminal: 6px 6px 0 var(--terminal-shadow);
-  --shadow-hard: 6px 6px 0 var(--hard-shadow);
-  /* Foco de los campos del formulario: halo de 4 px de brand/accent al 40 %. */
-  --shadow-focus: 0 0 0 4px color-mix(in oklab, var(--primary) 40%, transparent);
+  --color-on-accent: var(--on-accent);
+  /* Nombres de shadcn que usan components/ui y la capa base. */
+  --color-background: var(--base);
+  --color-foreground: var(--fg);
+  --color-border: var(--line-strong);
+  --color-ring: var(--accent);
+
   --font-sans: var(--font-plex-sans);
-  --font-heading: var(--font-fraunces);
   --font-mono: var(--font-jetbrains-mono);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Sombras y brillos de los boards v2. */
+  --shadow-glow: 0 0 28px color-mix(in srgb, var(--blue) 45%, transparent); /* botón primario */
+  --shadow-dot: 0 0 8px color-mix(in srgb, var(--cyan) 80%, transparent); /* punto "Disponible" */
+  --shadow-node: 0 0 12px color-mix(in srgb, var(--cyan) 80%, transparent); /* nodo actual */
+  --shadow-progress: 0 0 8px color-mix(in srgb, var(--cyan) 60%, transparent); /* progreso de lectura */
+  --shadow-loader: 0 0 10px color-mix(in srgb, var(--cyan) 60%, transparent); /* cargador de la intro */
+  --shadow-window: 0 30px 60px -14px rgb(0 0 0 / 0.6); /* capturas de proyectos */
+  --shadow-terminal: 0 24px 60px -10px color-mix(in srgb, var(--blue) 25%, transparent);
+  --shadow-check: 0 0 32px color-mix(in srgb, var(--cyan) 35%, transparent); /* mensaje enviado */
+  --shadow-alert: 0 0 40px color-mix(in srgb, var(--blue) 40%, transparent); /* página de error */
 }
 
 /*
- * Tipografías tal como se usan en los boards de Penpot. Los títulos llegan a
- * su tamaño de 1440 px y se reducen en pantallas chicas.
+ * Tipografías v2 (IBM Plex Sans y JetBrains Mono). Las que cambian entre los
+ * boards mobile (375 px) y desktop (1440 px) escalan de forma lineal entre
+ * ambos anchos; el comentario indica mobile → desktop.
  */
 @theme {
-  --text-h1: clamp(2.5rem, 1.6rem + 2.5vw, 3.625rem); /* 58px */
-  --text-h1--line-height: 1.12;
-  --text-h1--letter-spacing: -0.05rem;
-  --text-h2: clamp(2rem, 1.25rem + 1.75vw, 2.75rem); /* 44px */
-  --text-h2--line-height: 1.15;
-  --text-h2--letter-spacing: -0.05rem;
-  --text-h3: 1.375rem; /* 22px */
-  --text-h3--line-height: 1.3;
-  --text-base: 1rem;
-  --text-base--line-height: 1.6;
-  --text-eyebrow: 1rem;
-  --text-eyebrow--line-height: 1.4;
-  --text-mono: 0.875rem;
-  --text-mono--line-height: 1.4;
-  --text-logo-lg: 2.5rem; /* 40px, logo de la intro */
-  --text-logo-lg--line-height: 1.4;
-  --text-terminal: 1rem;
-  --text-terminal--line-height: 1.4;
-  --text-caption: 0.8125rem; /* 13px */
-  --text-caption--line-height: 1.4;
-  --text-chip: 0.75rem;
-  --text-chip--line-height: 1.2;
-  --text-chip-lg: 0.8125rem; /* 13px */
-  --text-chip-lg--line-height: 1.2;
-  --text-chip-xs: 0.6875rem; /* 11px, "Más reciente" */
-  --text-chip-xs--line-height: 1.2;
-  --text-lead: 1.1875rem; /* 19px */
+  --text-display: clamp(2.75rem, 1.958rem + 3.38vw, 5rem); /* Display: 44 → 80 */
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-numeral: clamp(7rem, 5.768rem + 5.258vw, 10.5rem); /* 404: 112 → 168 */
+  --text-numeral--line-height: 1;
+  --text-numeral--letter-spacing: -0.036em;
+  --text-contact: clamp(2.125rem, 1.641rem + 2.066vw, 3.5rem); /* ¿Construimos algo juntos?: 34 → 56 */
+  --text-contact--line-height: 1.1;
+  --text-contact--letter-spacing: -0.029em;
+  --text-h2: clamp(2rem, 1.648rem + 1.502vw, 3rem); /* H2: 32 → 48 */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.075rem;
+  /* Escaparate de proyectos: tarjetas apiladas y, con `-lg`, el escaparate fijo (escala con el ancho, spec). */
+  --text-project-title: clamp(1.625rem, 7vw, 2.125rem); /* 26 → 34 */
+  --text-project-title--line-height: 1.1;
+  --text-project-title--letter-spacing: -0.025em;
+  --text-project-title-lg: clamp(1.75rem, 3.2vw, 3.25rem); /* 28 → 52 */
+  --text-project-title-lg--line-height: 1.1;
+  --text-project-title-lg--letter-spacing: -0.025em;
+  --text-project-role: clamp(1rem, 1.25vw, 1.1875rem); /* 16 → 19 */
+  --text-project-role--line-height: 1.6;
+  --text-project-meta: clamp(0.875rem, 1vw, 1rem); /* 14 → 16 */
+  --text-project-meta--line-height: 1.5;
+  --text-project-item: 0.9375rem; /* viñetas: 15 */
+  --text-project-item--line-height: 1.625;
+  --text-project-item-lg: clamp(0.9375rem, 1.15vw, 1.125rem); /* 15 → 18 */
+  --text-project-item-lg--line-height: 1.625;
+  --text-project-tool: clamp(0.8125rem, 1vw, 0.9375rem); /* tecnologías, mono: 13 → 15 */
+  --text-project-tool--line-height: 1.4;
+  --text-project-link: 0.9375rem; /* 15 */
+  --text-project-link--line-height: 1.2;
+  --text-project-link-lg: clamp(0.9375rem, 1.1vw, 1.0625rem); /* 15 → 17 */
+  --text-project-link-lg--line-height: 1.2;
+  --text-stat: clamp(2rem, 1.824rem + 0.751vw, 2.5rem); /* cifras del hero: 32 → 40 */
+  --text-stat--line-height: 1.1;
+  --text-stat--letter-spacing: -0.075rem;
+  --text-menu: 1.875rem; /* menú móvil: 30 */
+  --text-menu--line-height: 1.25;
+  --text-menu--letter-spacing: -0.0375rem;
+  --text-sent: 1.875rem; /* ¡Mensaje enviado!: 30 */
+  --text-sent--line-height: 1.25;
+  --text-sent--letter-spacing: -0.025rem;
+  --text-h3: 1.625rem; /* H3: 26 */
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.025rem;
+  --text-role: clamp(1.25rem, 1.118rem + 0.563vw, 1.625rem); /* Role: 20 → 26 */
+  --text-role--line-height: 1.3;
+  --text-role--letter-spacing: -0.01875rem;
+  --text-title-lg: clamp(1.25rem, 1.162rem + 0.376vw, 1.5rem); /* puesto de Experiencia: 20 → 24 */
+  --text-title-lg--line-height: 1.25;
+  --text-title-lg--letter-spacing: -0.025rem;
+  --text-title: clamp(1.25rem, 1.206rem + 0.188vw, 1.375rem); /* Stack, métricas y formulario: 20 → 22 */
+  --text-title--line-height: 1.25;
+  --text-title--letter-spacing: -0.025rem;
+  --text-title-sm: clamp(1.1875rem, 1.165rem + 0.094vw, 1.25rem); /* valores de Sobre mí: 19 → 20 */
+  --text-title-sm--line-height: 1.25;
+  --text-title-sm--letter-spacing: -0.025rem;
+  --text-lead: clamp(1.0625rem, 1.019rem + 0.188vw, 1.1875rem); /* Lead: 17 → 19 */
   --text-lead--line-height: 1.6;
-  --text-body-lg: 1.0625rem; /* 17px, bio de Sobre mí */
-  --text-body-lg--line-height: 1.7;
-  --text-body-xl: 1.125rem; /* 18px, Mensaje enviado */
-  --text-body-xl--line-height: 1.6;
-  --text-body-md: 1rem; /* 16px, datos de contacto */
-  --text-body-md--line-height: 1.4;
-  --text-field: 0.9375rem; /* 15px, campos del formulario */
-  --text-field--line-height: 1.4;
-  --text-body-sm: 0.9375rem; /* 15px, texto de tarjetas */
-  --text-body-sm--line-height: 1.5;
-  --text-body-xs: 0.875rem; /* 14px */
-  --text-body-xs--line-height: 1.4;
-  --text-intro: 1.0625rem; /* 17px, intro de Stack y Contacto */
-  --text-intro--line-height: 1.6;
-  --text-card-title-sm: 1.25rem; /* 20px, Experiencia */
-  --text-card-title-sm--line-height: 1.3;
-  --text-card-title-sm--letter-spacing: -0.0125rem;
-  --text-card-title: 1.3125rem; /* 21px, Sobre mí */
-  --text-card-title--line-height: 1.4;
-  --text-card-title--letter-spacing: -0.0125rem;
-  --text-card-title-lg: 1.4375rem; /* 23px, Stack y Contacto */
-  --text-card-title-lg--line-height: 1.4;
-  --text-card-title-lg--letter-spacing: -0.0125rem;
-  --text-card-title-xl: 1.625rem; /* 26px, Proyectos */
-  --text-card-title-xl--line-height: 1.2;
-  --text-card-title-xl--letter-spacing: -0.0125rem;
-  --text-card-body: 0.9375rem; /* 15px, resumen de proyecto */
-  --text-card-body--line-height: 1.55;
-  --text-card-body-sm: 0.875rem; /* 14px, Experiencia */
-  --text-card-body-sm--line-height: 1.55;
-  --text-detail-title: 2.25rem; /* 36px, detalle de proyecto */
-  --text-detail-title--line-height: 1.2;
-  --text-detail-title--letter-spacing: -0.0125rem;
-  --text-detail-body: 0.9375rem; /* 15px, reto y solución */
-  --text-detail-body--line-height: 1.6;
-  --text-metric: 1.5rem; /* 24px, métricas del detalle */
-  --text-metric--line-height: 1.4;
-  --text-metric--letter-spacing: -0.0125rem;
-  --text-overline: 0.75rem; /* 12px mono en mayúsculas: sector · años */
-  --text-overline--line-height: 1.4;
-  --text-overline--letter-spacing: 0.075rem;
-  --text-monogram: 27.5cqi; /* 120px en el retrato de 436 px; escala con su ancho */
-  --text-monogram--line-height: 1;
-  --text-monogram--letter-spacing: -0.05rem;
-  --text-stat: clamp(2rem, 1.5rem + 1.25vw, 2.5rem); /* 40px */
-  --text-stat--line-height: 1;
-  --text-stat--letter-spacing: -0.05rem;
-  --text-label: 0.875rem;
-  --text-label--line-height: 1.3;
-  --text-code: clamp(0.8125rem, 0.75rem + 0.25vw, 0.9375rem); /* 15px */
-  --text-code--line-height: 1.75;
-  --text-button: 0.9375rem; /* 15px */
+  --text-bio: clamp(1rem, 0.978rem + 0.094vw, 1.0625rem); /* Sobre mí y Stack: 16 → 17 */
+  --text-bio--line-height: 1.7;
+  --text-body: 1rem; /* Body: 16 */
+  --text-body--line-height: 1.65;
+  --text-card: 0.9375rem; /* texto de tarjetas: 15 */
+  --text-card--line-height: 1.65;
+  --text-small: 0.875rem; /* Small: 14 */
+  --text-small--line-height: 1.5;
+  --text-nav: 0.875rem; /* Nav: 14 */
+  --text-nav--line-height: 1.2;
+  --text-button: 0.9375rem; /* Button: 15 */
   --text-button--line-height: 1.2;
-  --text-button--font-weight: 600;
-  --text-button-sm: 0.875rem;
+  --text-button-sm: 0.875rem; /* botón chico: 14 */
   --text-button-sm--line-height: 1.2;
-  --text-button-sm--font-weight: 600;
-  --leading-ui: 1.2;
-  --tracking-label: 0.0625rem; /* 1px */
 
-  /* Ancho de los boards de Penpot: layouts que solo encajan a 1440 (Experiencia). */
-  --breakpoint-board: 90rem;
+  /* JetBrains Mono */
+  --text-eyebrow: 0.8125rem; /* Eyebrow: 13, en mayúsculas */
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.1rem;
+  --text-mono: 0.875rem; /* Mono: 14 */
+  --text-mono--line-height: 1.5;
+  --text-greeting: clamp(0.875rem, 0.831rem + 0.188vw, 1rem); /* // Hola, soy: 14 → 16 */
+  --text-greeting--line-height: 1.5;
+  --text-period: 0.9375rem; /* período de Experiencia: 15 */
+  --text-period--line-height: 1.5;
+  --text-chip: 0.8125rem; /* herramientas: 13 */
+  --text-chip--line-height: 1.25rem; /* Penpot redondea la línea de 19,5 a 20 */
+  --text-terminal: clamp(0.8125rem, 0.747rem + 0.282vw, 1rem); /* terminal de la intro: 13 → 16 */
+  --text-terminal--line-height: 1.5;
+  --text-logo: clamp(1.25rem, 1.206rem + 0.188vw, 1.375rem); /* </JM> del header: 20 → 22 */
+  --text-logo--line-height: 1.2;
+  --text-logo-sm: 1.125rem; /* </JM> del footer: 18 */
+  --text-logo-sm--line-height: 1.5;
+  --text-logo-lg: clamp(2.5rem, 2.324rem + 0.751vw, 3rem); /* </JM> de la intro: 40 → 48 */
+  --text-logo-lg--line-height: 1.5;
 
-  /* Cursor de la spec de motion: blink 1 s. */
+  /* Motion & Flow spec v2 */
   --animate-blink: blink 1s steps(1) infinite;
-  /* Línea de tiempo de Experiencia, según las capas del board: el progreso
-     crece de 0 a 1 en 1,2 s y el nodo actual late (escala 1 → 1,6 y se desvanece). */
-  --animate-grow-x: grow-x 1.2s ease-out both;
-  --animate-grow-y: grow-y 1.2s ease-out both;
-  --animate-pulse-ring: pulse-ring 2s ease-out infinite;
-  /* Check de envío (spec de motion): escala 0,6 → 1 con back.out. */
+  /* Nombre del hero y 404: el degradado se desplaza en un ciclo de 6 s. */
+  --animate-gradient: gradient-shift 6s linear infinite;
+  /* Enviar formulario: el check entra escalando con back.out. */
   --animate-pop-in: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
   @keyframes blink {
@@ -211,20 +180,9 @@
       opacity: 0;
     }
   }
-  @keyframes grow-x {
-    from {
-      scale: 0 1;
-    }
-  }
-  @keyframes grow-y {
-    from {
-      scale: 1 0;
-    }
-  }
-  @keyframes pulse-ring {
+  @keyframes gradient-shift {
     to {
-      scale: 1.6;
-      opacity: 0;
+      background-position: 200% 0;
     }
   }
   @keyframes pop-in {
@@ -234,177 +192,122 @@
   }
 }
 
+/*
+ * Texto con el degradado animado: el fondo es el degradado de Penpot y su
+ * reflejo, al doble de ancho; desplazarlo un ciclo completo no tiene saltos y
+ * al inicio se ve igual que el board.
+ */
+@utility text-gradient-animated {
+  background-image: linear-gradient(
+    90deg in srgb,
+    var(--blue) 0%,
+    var(--cyan) var(--gradient-mid, 27.5%),
+    var(--fg) 50%,
+    var(--cyan) calc(100% - var(--gradient-mid, 27.5%)),
+    var(--blue) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Cuadrícula de 64 px del hero y la intro: líneas de 1 px de text/primary al 3 % (4 % en la intro). */
+@utility bg-grid {
+  --grid-line: color-mix(in srgb, var(--fg) var(--grid-alpha, 3%), transparent);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Ruido del fondo animado (spec): textura fractal en mosaico de 160 px. */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Borde de 1 px con el degradado azul → cian al 50 % (tarjeta de Contacto). */
+@utility border-gradient {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--raised), var(--raised)) padding-box,
+    linear-gradient(
+        90deg in srgb,
+        color-mix(in srgb, var(--blue) 50%, transparent),
+        color-mix(in srgb, var(--cyan) 50%, transparent)
+      )
+      border-box;
+}
+
+/* Clic en el menú o en un CTA interno: scroll suave con el header (64/72 px) de offset. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+@media (width >= 64rem) {
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+}
+
 /* Mientras la intro está visible (ver components/intro), la página no se desplaza. */
 :root[data-intro] {
   overflow: hidden;
 }
 
-/*
- * Motion & Flow spec · transiciones entre pantallas con View Transitions (el
- * tipo sale de transitionTo en components/site/screens.ts). El header queda
- * fijo como referencia y el indicador de la nav se desliza al ítem nuevo.
- */
+/* Enviar formulario (spec): el formulario se desvanece en "Mensaje enviado" en 500 ms. */
 ::view-transition {
   pointer-events: none;
 }
-::view-transition-group(site-header) {
-  z-index: 100;
-  animation: none;
-}
-::view-transition-old(site-header) {
-  display: none;
-}
-::view-transition-new(site-header) {
-  animation: none;
-}
-::view-transition-group(nav-indicator) {
-  z-index: 101;
-  animation-duration: 250ms;
-  animation-timing-function: ease-out;
-}
-/* push: la pantalla vieja sale y la nueva entra desde el lado opuesto. */
-::view-transition-old(.push-left) {
-  animation: 450ms ease-in-out both vt-to-left;
-}
-::view-transition-new(.push-left) {
-  animation: 450ms ease-in-out both vt-from-right;
-}
-::view-transition-old(.push-right) {
-  animation: 450ms ease-in-out both vt-to-right;
-}
-::view-transition-new(.push-right) {
-  animation: 450ms ease-in-out both vt-from-left;
-}
-::view-transition-old(.step-left) {
-  animation: 500ms ease-in-out both vt-to-left;
-}
-::view-transition-new(.step-left) {
-  animation: 500ms ease-in-out both vt-from-right;
-}
-::view-transition-old(.step-right) {
-  animation: 500ms ease-in-out both vt-to-right;
-}
-::view-transition-new(.step-right) {
-  animation: 500ms ease-in-out both vt-from-left;
-}
-::view-transition-old(.push-up) {
-  animation: 600ms ease-in-out both vt-to-top;
-}
-::view-transition-new(.push-up) {
-  animation: 600ms ease-in-out both vt-from-bottom;
-}
-::view-transition-old(.push-down) {
-  animation: 600ms ease-in-out both vt-to-bottom;
-}
-::view-transition-new(.push-down) {
-  animation: 600ms ease-in-out both vt-from-top;
-}
-::view-transition-old(.dissolve) {
-  animation: 600ms ease-out both vt-fade-out;
-}
-::view-transition-new(.dissolve) {
-  animation: 600ms ease-out both vt-fade-in;
-}
-/* Enviar formulario: 06 se desvanece en 07. */
 ::view-transition-old(.form-dissolve) {
-  animation: 500ms ease-out both vt-fade-out;
+  animation: 500ms ease-out both fade-out;
 }
 ::view-transition-new(.form-dissolve) {
-  animation: 500ms ease-out both vt-fade-in;
+  animation: 500ms ease-out both fade-in;
 }
-@keyframes vt-to-left {
-  to {
-    translate: -100vw 0;
-  }
-}
-@keyframes vt-from-right {
-  from {
-    translate: 100vw 0;
-  }
-}
-@keyframes vt-to-right {
-  to {
-    translate: 100vw 0;
-  }
-}
-@keyframes vt-from-left {
-  from {
-    translate: -100vw 0;
-  }
-}
-@keyframes vt-to-top {
-  to {
-    translate: 0 -100vh;
-  }
-}
-@keyframes vt-from-bottom {
-  from {
-    translate: 0 100vh;
-  }
-}
-@keyframes vt-to-bottom {
-  to {
-    translate: 0 100vh;
-  }
-}
-@keyframes vt-from-top {
-  from {
-    translate: 0 -100vh;
-  }
-}
-@keyframes vt-fade-out {
+@keyframes fade-out {
   to {
     opacity: 0;
   }
 }
-@keyframes vt-fade-in {
+@keyframes fade-in {
   from {
     opacity: 0;
   }
 }
 
-/* Reveal al hacer scroll (ver components/motion/reveal-on-scroll). */
+/*
+ * Aparición al hacer scroll (spec): opacidad, desenfoque 8 → 0 y 16 px hacia
+ * arriba en 500 ms; los que entran juntos se escalonan 60 ms. La activa
+ * components/motion/reveal-on-scroll.
+ */
 :root[data-reveal-ready] [data-reveal]:not([data-revealed]) {
   opacity: 0;
 }
 [data-revealed] {
-  animation: 400ms var(--ease-back-out) backwards reveal;
+  animation: 500ms ease-out backwards reveal;
   animation-delay: calc(var(--reveal-i, 0) * 60ms);
 }
 @keyframes reveal {
   from {
     opacity: 0;
+    filter: blur(8px);
     translate: 0 16px;
   }
 }
 
-/* Movimiento reducido (spec): solo opacidad en 150 ms, sin escalonado. */
+/* Movimiento reducido (spec): solo opacidad en 150 ms; sin desenfoque, loops ni scroll suave. */
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(.push-left),
-  ::view-transition-old(.push-right),
-  ::view-transition-old(.step-left),
-  ::view-transition-old(.step-right),
-  ::view-transition-old(.push-up),
-  ::view-transition-old(.push-down),
-  ::view-transition-old(.dissolve),
+  html {
+    scroll-behavior: auto;
+  }
   ::view-transition-old(.form-dissolve) {
-    animation: 150ms ease both vt-fade-out;
+    animation: 150ms ease both fade-out;
   }
-  ::view-transition-new(.push-left),
-  ::view-transition-new(.push-right),
-  ::view-transition-new(.step-left),
-  ::view-transition-new(.step-right),
-  ::view-transition-new(.push-up),
-  ::view-transition-new(.push-down),
-  ::view-transition-new(.dissolve),
   ::view-transition-new(.form-dissolve) {
-    animation: 150ms ease both vt-fade-in;
-  }
-  ::view-transition-group(nav-indicator) {
-    animation: none;
+    animation: 150ms ease both fade-in;
   }
   [data-revealed] {
-    animation: 150ms ease-out backwards vt-fade-in;
+    animation: 150ms ease-out backwards fade-in;
     animation-delay: 0s;
   }
 }
@@ -414,6 +317,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    @apply bg-base font-sans text-fg antialiased;
   }
 }

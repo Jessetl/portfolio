@@ -21,8 +21,9 @@ export type ContactFormState =
   | { status: 'sent'; name: string; email: string };
 
 /**
- * 06 · Contacto y su estado 07 · Mensaje enviado. La info de contacto llega
- * renderizada en el servidor (`info`); al enviar, la pantalla entera pasa a 07.
+ * Cuerpo de 05 · Contacto: canales (renderizados en el servidor, `info`) y
+ * formulario; al enviar, "Mensaje enviado" reemplaza al formulario. Dos
+ * columnas desde 1280 px; antes, apilados.
  */
 export const ContactFlow = ({
   info,
@@ -40,26 +41,25 @@ export const ContactFlow = ({
     status: 'idle',
   });
 
-  // Enviar formulario (Motion & Flow spec): 06 se desvanece en 07 en 500 ms.
-  // Las claves separan los dos estados para que solo ese cambio se anime.
-  if (state.status === 'sent')
-    return (
-      <ViewTransition key='sent' enter='form-dissolve' default='none'>
-        <MessageSent name={state.name} email={state.email} />
-      </ViewTransition>
-    );
-
   return (
-    <ViewTransition key='form' exit='form-dissolve' default='none'>
-      <div className='grid gap-12 xl:grid-cols-[minmax(0,1fr)_600px] xl:gap-10'>
-        {info}
-        <ContactForm
-          action={formAction}
-          pending={pending}
-          state={state}
-          turnstileSiteKey={turnstileSiteKey}
-        />
-      </div>
-    </ViewTransition>
+    <div className='relative mt-7 grid grid-cols-1 items-start gap-5 lg:mt-14 xl:mx-auto xl:max-w-272 xl:grid-cols-[minmax(0,420fr)_minmax(0,620fr)] xl:gap-12'>
+      {info}
+      {/* Enviar formulario (spec): se desvanece en "Mensaje enviado" en 500 ms.
+          Las claves separan los dos estados para que solo ese cambio se anime. */}
+      {state.status === 'sent' ? (
+        <ViewTransition key='sent' enter='form-dissolve' default='none'>
+          <MessageSent name={state.name} email={state.email} />
+        </ViewTransition>
+      ) : (
+        <ViewTransition key='form' exit='form-dissolve' default='none'>
+          <ContactForm
+            action={formAction}
+            pending={pending}
+            state={state}
+            turnstileSiteKey={turnstileSiteKey}
+          />
+        </ViewTransition>
+      )}
+    </div>
   );
 };

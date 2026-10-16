@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-/** "Icon bg" de Penpot (boards 02, 03 y 06): caja de 44 px con el ícono en acento. */
+/** "IconBox" v2 de Penpot: caja bg/muted de 44 px con borde y el ícono en acento. */
 export const IconBox = ({
   icon: Icon,
   className,
@@ -13,7 +13,7 @@ export const IconBox = ({
   <span
     aria-hidden
     className={cn(
-      'flex size-11 items-center justify-center rounded-lg bg-primary/18 text-accent-text',
+      'flex size-11 shrink-0 items-center justify-center rounded-xl bg-muted text-accent ring-1 ring-line-strong ring-inset [&_svg]:size-5',
       className,
     )}
   >

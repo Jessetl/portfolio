@@ -2,33 +2,22 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-// Botones de Penpot: primary → default, secondary → outline, ghost → ghost.
-// Penpot no define hover; el press (scale .97, 120 ms) sale de la spec de motion.
+// Botones v2 de Penpot: píldoras primary (degradado con brillo) y secondary
+// (bg/raised con borde interior). Spec de motion: el primario sube el brillo
+// un 20 % en 200 ms al pasar el mouse; al presionar, scale .97 en 120 ms.
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-transparent bg-clip-padding font-sans whitespace-nowrap outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-safe:transition-transform motion-safe:duration-120 motion-safe:active:not-aria-[haspopup]:scale-97 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full font-sans whitespace-nowrap outline-none select-none [transition:filter_200ms,scale_120ms] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-safe:active:not-aria-[haspopup]:scale-97 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4.5",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground",
-        outline: "border-border bg-transparent text-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost: "text-muted-foreground",
-        destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
+        default:
+          "bg-linear-to-r/srgb from-blue to-cyan text-on-accent shadow-glow hover:brightness-120",
+        secondary: "bg-raised text-fg ring-1 ring-line-strong ring-inset",
       },
       size: {
-        default: "h-13 gap-2.5 px-6 text-button",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-11 gap-2.5 px-4 text-button-sm",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        default: "h-12 gap-2.5 px-6.5 text-button font-semibold",
+        sm: "h-9.5 gap-2.5 px-4.5 text-button-sm font-medium",
+        icon: "size-11",
       },
     },
     defaultVariants: {

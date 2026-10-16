@@ -1,61 +1,30 @@
-'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
-import { cn } from '@/lib/utils';
+import { navSections } from './sections';
 
-import { isActive, screens, transitionTo } from './screens';
-
-// Nav de Penpot desde 768 px (segunda fila hasta 1279). Debajo, la reemplaza
-// el menú móvil. Es cliente solo para marcar la pantalla activa.
-export const NavLinks = () => {
-  const pathname = usePathname();
-
-  return (
-    <nav
-      aria-label='Principal'
-      className='order-last hidden w-full overflow-x-auto md:block xl:order-none xl:w-auto xl:overflow-visible'
-    >
-      <ul className='flex gap-4 xl:gap-7'>
-        {screens.map(({ href, number, label }) => {
-          const active = isActive(href, pathname);
-          return (
-            <li key={href}>
-              <Link
-                href={href}
-                aria-current={active ? 'page' : undefined}
-                transitionTypes={transitionTo(pathname, href)}
-                className={cn(
-                  'flex flex-col gap-1.5 py-1 font-mono text-mono leading-ui whitespace-nowrap',
-                  active && 'font-semibold',
-                )}
-              >
-                <span>
-                  <span className='text-accent-text'>{number}.</span>{' '}
-                  <span
-                    className={
-                      active ? 'text-foreground' : 'text-muted-foreground'
-                    }
-                  >
-                    {label}
-                  </span>
-                </span>
-                {/* Con nombre de view transition, el indicador se desliza al
-                    ítem nuevo al cambiar de pantalla (250 ms, globals.css). */}
-                <span
-                  aria-hidden
-                  style={active ? { viewTransitionName: 'nav-indicator' } : undefined}
-                  className={cn(
-                    'h-0.5 w-6 rounded-xs',
-                    active ? 'bg-accent-text' : 'bg-transparent',
-                  )}
-                />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
-};
+/**
+ * Nav del header desde 1024 px. HeaderScroll marca la sección activa
+ * (aria-current) y desliza el subrayado degradado hasta ella en 250 ms.
+ */
+export const NavLinks = () => (
+  <nav aria-label='Principal' className='relative hidden lg:block'>
+    <ul className='flex gap-8'>
+      {navSections.map(({ id, label }) => (
+        <li key={id}>
+          <Link
+            href={`/#${id}`}
+            data-nav-link
+            className='block text-nav font-medium text-fg-muted transition-colors duration-200 aria-[current]:text-fg'
+          >
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+    <span
+      aria-hidden
+      data-nav-indicator
+      className='absolute top-[calc(100%+6px)] left-0 h-0.5 w-(--w) translate-x-(--x) rounded-xs bg-linear-to-r/srgb from-blue to-cyan opacity-0 transition-[translate,width,opacity] duration-250 ease-out data-active:opacity-100 motion-reduce:transition-opacity motion-reduce:duration-150'
+    />
+  </nav>
+);

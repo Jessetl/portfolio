@@ -1,0 +1,113 @@
+/*
+ * Escaparate fijo de Proyectos (Motion & Flow spec), como el de la
+ * referencia. Sin `data-pinned` (mobile, movimiento reducido o sin JS), los
+ * proyectos son tarjetas apiladas. Con `data-pinned`, que pone
+ * ShowcaseScroll, la pista mide 100vh por proyecto más media pantalla de
+ * cierre y el escenario queda fijo: el texto ocupa el 44 % (alineado con el
+ * resto de la página) y las capturas, el 56 % restante hasta el borde.
+ */
+.showcase[data-pinned] .track {
+  height: calc((var(--count) + 0.5) * 100vh);
+}
+
+.showcase[data-pinned] .stage {
+  --pad: max(2.5rem, calc((100% - 90rem) / 2 + 2.5rem));
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 44% 56%;
+  grid-template-rows: 100%;
+  gap: 0;
+  max-width: none;
+  height: 100vh;
+  margin: 0;
+  padding: 0 0 0 var(--pad);
+  overflow: hidden;
+}
+
+@media (width >= 80rem) {
+  .showcase[data-pinned] .stage {
+    --pad: max(5rem, calc((100% - 90rem) / 2 + 5rem));
+  }
+}
+
+.showcase[data-pinned] .project {
+  display: contents;
+}
+
+/* Texto: entra con fundido subiendo 2 % y sale hacia arriba, en 400 ms. */
+.showcase[data-pinned] .text {
+  grid-area: 1 / 1;
+  align-self: stretch;
+  padding-top: max(7rem, 16vh);
+  opacity: 0;
+  translate: 0 2%;
+  pointer-events: none;
+  transition:
+    opacity 400ms ease-out,
+    translate 400ms ease-out;
+}
+
+.showcase[data-pinned] .project[data-state='before'] .text {
+  translate: 0 -2%;
+}
+
+.showcase[data-pinned] .project[data-state='active'] .text {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+
+/* Captura a sangre: sin marco, fundido del 8 % a la izquierda; la primera queda arriba. */
+.showcase[data-pinned] .capture {
+  grid-area: 1 / 2;
+  z-index: var(--z);
+  aspect-ratio: auto;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  mask-image: linear-gradient(to right, transparent, black 8%);
+}
+
+.showcase[data-pinned] .capture img {
+  object-position: center;
+}
+
+.hint {
+  display: none;
+}
+
+/* El aviso de scroll va centrado bajo el texto; solo cabe con 760 px de alto. */
+@media (height >= 47.5rem) {
+  .showcase[data-pinned] .hint {
+    position: absolute;
+    bottom: 2rem;
+    left: calc(var(--pad) + (100% - var(--pad)) * 0.22);
+    z-index: 10;
+    display: flex;
+    translate: -50% 0;
+  }
+}
+
+.chevron {
+  animation: chevron 1.4s ease-in-out infinite;
+}
+
+.chevron:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.chevron:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes chevron {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
