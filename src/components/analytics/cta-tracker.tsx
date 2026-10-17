@@ -12,14 +12,10 @@ export const CtaTracker = () => {
       if (!(event.target instanceof Element)) return;
       const element = event.target.closest<HTMLElement>('[data-cta]');
       if (!element) return;
-      const { cta, ctaLocation, ctaProject } = element.dataset;
+      const { cta, ctaLocation } = element.dataset;
       track({
         name: 'cta_click',
-        params: {
-          cta: cta as Cta,
-          location: ctaLocation as CtaLocation,
-          ...(ctaProject ? { project: ctaProject } : {}),
-        },
+        params: { cta: cta as Cta, location: ctaLocation as CtaLocation },
       });
     };
 

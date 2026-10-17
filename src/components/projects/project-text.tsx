@@ -1,16 +1,12 @@
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-
-import { ctaAttrs } from '@/components/analytics/cta';
 import type { Project } from '@/core/domain/projects/project';
 import { cn } from '@/lib/utils';
 
 import { ToolIcon } from './tool-icon';
 
 /**
- * Texto del proyecto (spec): título, rol, período y sector, tres logros,
- * tecnologías con su logo y el enlace a Contacto. En el escaparate fijo los
- * tamaños escalan con el ancho (`showcase:`).
+ * Texto del proyecto (spec): título, rol, período y sector, tres logros y
+ * tecnologías con su logo. En el escaparate fijo los tamaños escalan con el
+ * ancho (`showcase:`).
  */
 export const ProjectText = ({ project, className }: { project: Project; className?: string }) => (
   <div data-text className={cn('flex flex-col items-start', className)}>
@@ -44,19 +40,5 @@ export const ProjectText = ({ project, className }: { project: Project; classNam
         </li>
       ))}
     </ul>
-    {/* Enlace como el de la referencia: subrayado que entra al pasar el mouse y flecha que gira. */}
-    <Link
-      href='/#contacto'
-      {...ctaAttrs('contact', 'projects', project.slug)}
-      className='group mt-2 inline-flex items-center gap-2 text-project-link font-medium showcase:mt-[1vw] showcase:text-project-link-lg'
-    >
-      <span className='relative after:absolute after:-bottom-0.5 after:left-0 after:h-[1.5px] after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.62,0.05,0.01,0.99)] group-hover:after:origin-left group-hover:after:scale-x-100 group-focus-visible:after:origin-left group-focus-visible:after:scale-x-100'>
-        Hablemos de este proyecto
-      </span>
-      <ArrowRight
-        aria-hidden
-        className='size-[1em] shrink-0 transition-transform duration-300 group-hover:-rotate-45 group-focus-visible:-rotate-45'
-      />
-    </Link>
   </div>
 );

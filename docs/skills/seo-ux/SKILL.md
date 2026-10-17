@@ -55,19 +55,18 @@ Zonas con más clics en portfolios (mapas de calor), contrastadas con las pantal
 | Header (fijo)         | Navegar, CV             | Nav a las 5 secciones, `CV`; en mobile, menú con `Hablemos` y `Descargar CV` | —                                                               |
 | Hero (`#inicio`)      | Ver trabajo o contactar | `Ver proyectos` (primario), `Hablemos`, `Descargar CV`, GitHub, LinkedIn   | —                                                               |
 | Sobre mí              | Quién eres              | —                                                                          | —                                                               |
-| Proyectos             | Detalle, demo, código   | `Hablemos de este proyecto` en cada proyecto                               | No hay `Ver demo` ni `Ver código` cuando el proyecto sea público |
+| Proyectos             | Detalle, demo, código   | —                                                                          | No hay `Ver demo` ni `Ver código` cuando el proyecto sea público |
 | Experiencia           | Trayectoria, CV         | `Descargar CV`                                                             | —                                                               |
 | Contacto              | Escribir                | Email (enlace y copiar), LinkedIn, GitHub, `Enviar mensaje`                | Copiar el email no tiene estado "copiado" en Penpot             |
 | Mensaje enviado       | Siguiente paso          | `Volver al inicio`, `Ver proyectos`                                        | —                                                               |
 | Footer                | Redes, volver arriba    | GitHub, LinkedIn, email, `Volver arriba`                                   | —                                                               |
 
-Prioridad de los CTAs, de más a menos valor: `Enviar mensaje` y `Hablemos` → `CV` → `Hablemos de este proyecto` →
-LinkedIn y GitHub → navegación.
+Prioridad de los CTAs, de más a menos valor: `Enviar mensaje` y `Hablemos` → `CV` → LinkedIn y GitHub → navegación.
 
 ## 3. Reglas de UX para CTAs
 
 1. **Un primario por vista.** El resto, secundario o ghost (las variantes de Penpot). Dos primarios compiten entre sí.
-2. **Verbo + objeto.** "Ver proyectos", "Descargar CV", "Hablemos de este proyecto"; nunca "Click aquí" ni "Más". Si
+2. **Verbo + objeto.** "Ver proyectos", "Descargar CV", "Enviar mensaje"; nunca "Click aquí" ni "Más". Si
    el texto visible es genérico, el enlace debe nombrar el objeto (texto oculto o `aria-label`). Eso también es mejor
    texto de enlace para Google.
 3. **Lo que parece clicable, lo es.** Si una tarjeta lleva a algún lado (LinkedIn y GitHub en Contacto), toda la
@@ -95,7 +94,7 @@ LinkedIn y GitHub → navegación.
 
 - **GA4** (`@next/third-parties/google`) registra los eventos de negocio. **Clarity** (`next/script`, `lazyOnload`)
   aporta mapas de calor, mapas de scroll, grabaciones y clics frustrados.
-- Los CTAs siguen siendo Server Components: se marcan con `ctaAttrs(cta, location, project?)` (atributos `data-cta*`).
+- Los CTAs siguen siendo Server Components: se marcan con `ctaAttrs(cta, location)` (atributos `data-cta*`).
   Las secciones del inicio, con `sectionAttrs(section)` (`id` del ancla + `data-section`). `CtaTracker` (root layout)
   escucha todos los clics por delegación; `SectionViews` (en el inicio, no en el layout) observa cuándo cada sección
   cruza la mitad de la pantalla, una vez por vista. Cero JS por botón y SSG intacto.
@@ -104,14 +103,13 @@ LinkedIn y GitHub → navegación.
 
 | Evento          | Cuándo                                                                       | Parámetros                              |
 | --------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
-| `cta_click`     | Clic en un elemento con `data-cta`                                           | `cta`, `location`, `project` (opcional) |
+| `cta_click`     | Clic en un elemento con `data-cta`                                           | `cta`, `location`                       |
 | `section_view`  | Una sección (`data-section`) cruza la mitad de la pantalla; una vez por vista | `section`                               |
 | `generate_lead` | El formulario de contacto devuelve `sent`                                    | `form: 'contact'`                       |
 
 - `cta`: `projects` · `contact` · `cv` · `email` · `linkedin` · `github`.
-- `location`: `header` · `hero` · `projects` · `experience` · `contact` · `sent` · `footer`.
+- `location`: `header` · `hero` · `experience` · `contact` · `sent` · `footer`.
 - `section`: `home` · `about` · `stack` · `projects` · `experience` · `contact`.
-- `project`: el `slug` del proyecto en `Hablemos de este proyecto`.
 - La medición mejorada de GA4 ya registra `page_view` (también en navegación del cliente), `file_download` (el PDF del
   CV) y clics salientes. `cta_click` agrega _desde dónde_ se hizo el clic.
 - Sin datos personales en los eventos (ni el nombre ni el email del formulario): las políticas de GA4 lo prohíben.
@@ -185,5 +183,5 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 | Canonical en el layout                                            | SEO: todas las páginas apuntan al inicio | Canonical por página                                   |
 | Intro que retiene el hero 2,5 s                                   | LCP + rebote                             | Overlay saltable sobre HTML ya renderizado             |
 | Imagen sin dimensiones                                            | CLS                                      | `next/image` con `width`/`height`                      |
-| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `project`, `section`, `form`   |
+| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `section`, `form`              |
 | Dos CTAs primarios en la misma vista                              | UX                                       | Uno primario; el resto, secundario                     |

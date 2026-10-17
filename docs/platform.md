@@ -28,7 +28,7 @@ No es un sitio terminado: es un experimento continuo.
 | Usuario                      | Qué busca                                              | Acción que buscamos                   |
 | ---------------------------- | ------------------------------------------------------ | ------------------------------------- |
 | Reclutador                   | Perfil rápido, experiencia, CV, LinkedIn               | Descargar CV, contactar               |
-| Hiring manager técnico       | Casos de estudio, stack, arquitectura, código          | Ver caso, "Hablemos de este proyecto" |
+| Hiring manager técnico       | Casos de estudio, stack, arquitectura, código          | Revisar proyectos, contactar          |
 | Cliente (proyecto freelance) | Resultados en su industria (fintech, banca, logística) | Contactar                             |
 
 ## 3. Métricas
@@ -37,7 +37,7 @@ No es un sitio terminado: es un experimento continuo.
 | ------------------------ | ---------------------------------------------------------------- | -------------------------------- |
 | Que me encuentren        | Impresiones, CTR y posición en búsquedas de nombre + rol         | Search Console                   |
 | Que lleguen al contenido | `section_view` por sección: embudo del scroll, del hero a Contacto | GA4                              |
-| Qué les interesa         | `cta_click` por `cta` × `location`, y por `project` en los casos | GA4                              |
+| Qué les interesa         | `cta_click` por `cta` × `location`; `section_view` por sección   | GA4                              |
 | Conversión               | `generate_lead` (formulario) y `file_download` (CV)              | GA4, eventos clave               |
 | Fricción                 | Dead clicks, rage clicks, mapas de scroll, grabaciones           | Microsoft Clarity                |
 | Velocidad                | LCP, INP y CLS de usuarios reales                                | Search Console (Core Web Vitals) |

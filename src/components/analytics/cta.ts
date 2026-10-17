@@ -5,14 +5,12 @@ export type Cta = 'projects' | 'contact' | 'cv' | 'email' | 'linkedin' | 'github
 export type CtaLocation =
   | 'header'
   | 'hero'
-  | 'projects'
   | 'experience'
   | 'contact'
   | 'sent'
   | 'footer';
 
-export const ctaAttrs = (cta: Cta, location: CtaLocation, project?: string) => ({
+export const ctaAttrs = (cta: Cta, location: CtaLocation) => ({
   'data-cta': cta,
   'data-cta-location': location,
-  ...(project ? { 'data-cta-project': project } : {}),
 });

@@ -21,7 +21,7 @@ Contenido:
 1. Crea una propiedad y un flujo web. El ID `G-…` va en la variable `GA_MEASUREMENT_ID`, solo en producción.
 2. Deja activa la **medición mejorada**: vistas de página con cambios de historial, clics salientes y descargas de
    archivos.
-3. Registra las **dimensiones personalizadas** de ámbito evento: `cta`, `location`, `project`, `section` (Admin →
+3. Registra las **dimensiones personalizadas** de ámbito evento: `cta`, `location`, `section` (Admin →
    Definiciones personalizadas). Sin ese registro, los parámetros no aparecen en los informes.
 4. Marca como **eventos clave**: `generate_lead` y `file_download` (el CV es el único PDF).
 5. Prueba en **DebugView** antes de dar por buena la implementación.
@@ -41,7 +41,7 @@ Contenido:
 | ¿Hacen clic en el resultado de Google? | Search Console: CTR por página                                                                  | Reescribe `title` y `description` de esa página                                |
 | ¿Llegan a Proyectos?                   | `section_view` de `projects` frente a las de `home`                                             | Refuerza `Ver proyectos` en el hero                                            |
 | ¿Qué CTA del hero funciona?            | `cta_click` con `location=hero`, por `cta`                                                      | Cambia el texto o la jerarquía del que no recibe clics                         |
-| ¿Qué casos interesan?                  | `cta_click` con `location=projects`, por `project`                                              | Ordena los casos por interés; reescribe el resumen de los que no reciben clics |
+| ¿Qué casos interesan?                  | Clarity: mapa de scroll y grabaciones en el escaparate de Proyectos                            | Ordena los casos por interés; reescribe las viñetas de los que se saltan       |
 | ¿Los recruiters bajan el CV?           | `file_download` + `cta_click` con `cta=cv`, por `location`                                      | Si nadie lo baja, revisa su visibilidad en el header y en Experiencia          |
 | ¿Dónde se frustran?                    | Clarity: dead clicks, rage clicks, quick backs                                                  | Convierte el elemento en enlace o quítale la apariencia de botón               |
 | ¿El formulario convierte?              | `generate_lead` frente a los `section_view` de `contact`                                        | Reduce campos o destaca el email directo                                       |
