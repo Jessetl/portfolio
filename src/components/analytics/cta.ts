@@ -1,25 +1,16 @@
 // Catálogo cerrado de CTAs (seo-ux). Atributos data-*: sirven en Server
 // Components y los lee CtaTracker sin JavaScript por botón.
-export type Cta =
-  | 'projects'
-  | 'contact'
-  | 'case_study'
-  | 'cv'
-  | 'email'
-  | 'linkedin'
-  | 'github';
+export type Cta = 'projects' | 'contact' | 'cv' | 'email' | 'linkedin' | 'github';
 
 export type CtaLocation =
   | 'header'
   | 'hero'
-  | 'projects'
-  | 'project_detail'
   | 'experience'
   | 'contact'
-  | 'sent';
+  | 'sent'
+  | 'footer';
 
-export const ctaAttrs = (cta: Cta, location: CtaLocation, project?: string) => ({
+export const ctaAttrs = (cta: Cta, location: CtaLocation) => ({
   'data-cta': cta,
   'data-cta-location': location,
-  ...(project ? { 'data-cta-project': project } : {}),
 });

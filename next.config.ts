@@ -1,10 +1,19 @@
 import type { NextConfig } from "next";
 
+// v2 es una sola página: las rutas de cada pantalla (v1) redirigen a su ancla.
+const sections = ["sobre-mi", "stack", "proyectos", "experiencia", "contacto"];
+
 // SSG con el modelo de caché anterior de Next 16: sin cacheComponents ni partialPrefetching.
 // Ver docs/skills/seo-ux.
 const nextConfig: NextConfig = {
   // Sin el ícono "N" de Next en desarrollo; los errores se siguen mostrando.
   devIndicators: false,
+  redirects: async () =>
+    sections.map((section) => ({
+      source: `/${section}`,
+      destination: `/#${section}`,
+      permanent: true, // 308: Google pasa la señal de la URL vieja al inicio
+    })),
   images: {
     formats: ["image/avif", "image/webp"],
   },

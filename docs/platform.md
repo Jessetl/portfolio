@@ -3,17 +3,15 @@
 Portfolio de Jesús Matute (Full-Stack Developer) construido como un producto medible: cada sección y cada CTA existen
 para llevar a un reclutador o cliente a una acción, y los datos de uso deciden cómo evoluciona el sitio.
 
-> **Estado (2026-10-15):** el diseño está completo en Penpot; las reglas de arquitectura y de SEO/UX están en
-> `docs/skills/`; la configuración SSG y la librería de analítica están aplicadas. Hay layout responsive (header,
-> footer, menú móvil y tokens de Penpot), una ruta por pantalla, la intro animada (00) y las pantallas de Inicio (01),
-> Sobre mí (02), Stack (03), Proyectos (04, grilla y filtro), Experiencia (05) y Contacto (06, con su estado 07 ·
-> Mensaje enviado) completas. El formulario envía con una Server Action por Resend, con campo trampa y Cloudflare
-> Turnstile invisible contra spam: configura sus variables (tabla de despliegue). Componentes reutilizables en `src/components/ui/`: `Chip`, `WindowFrame`, `Stat`,
-> `IconBox`, los íconos de marca y la superficie de tarjeta `cardSurface`. El detalle de proyecto es un modal sobre
-> `/proyectos`, como en el prototipo de Penpot; el contenido de los cuatro detalles sale del perfil profesional y solo
-> el portal de cotización tiene ilustración en el detalle. El CV se descarga desde `public/cv-jesus-matute.pdf`. El retrato de Sobre mí es el placeholder de Penpot
-> hasta tener la foto. Las páginas 404 (08) y de error (09) y el ícono `</JM>` (`src/app/icon.png` y `apple-icon.png`) salen de Penpot. SEO técnico con el dominio
-> `jmatute-dev.com` (`siteUrl` del perfil): canonical por página, `sitemap.xml`, `robots.txt` y JSON-LD `Person` en el inicio.
+> **Estado (2026-10-16), rama `v2`:** rediseño v2 de Penpot (página _Rediseño v2_) en una sola página con anclas:
+> hero, Sobre mí, Stack, Proyectos (escaparate fijo como el de la referencia: texto a la izquierda y captura a sangre
+> con barrido ligado al scroll; en mobile o con movimiento reducido, tarjetas apiladas), Experiencia, Contacto (con "Mensaje enviado" como estado) y footer.
+> Detrás de todo hay un fondo animado en canvas que reacciona al puntero, y los CTA principales son magnéticos (tabla
+> "Fondo animado y puntero" del spec de motion). Intro, menú móvil, 404 y error siguen sus boards v2. Las rutas de v1 redirigen (308) a su ancla. Las capturas de
+> los proyectos están en `public/projects/`. El formulario envía con una Server Action por Resend, con campo trampa y Cloudflare Turnstile invisible
+> contra spam: configura sus variables (tabla de despliegue). El CV se descarga desde `public/cv-jesus-matute.pdf` y el
+> ícono `</JM>` (`src/app/icon.png` y `apple-icon.png`) sale de Penpot. SEO técnico con el dominio `jmatute-dev.com`
+> (`siteUrl` del perfil): canonical, `sitemap.xml` (solo `/`), `robots.txt` y JSON-LD `Person` en el inicio.
 
 ## 1. Propósito
 
@@ -30,7 +28,7 @@ No es un sitio terminado: es un experimento continuo.
 | Usuario                      | Qué busca                                              | Acción que buscamos                   |
 | ---------------------------- | ------------------------------------------------------ | ------------------------------------- |
 | Reclutador                   | Perfil rápido, experiencia, CV, LinkedIn               | Descargar CV, contactar               |
-| Hiring manager técnico       | Casos de estudio, stack, arquitectura, código          | Ver caso, "Hablemos de este proyecto" |
+| Hiring manager técnico       | Casos de estudio, stack, arquitectura, código          | Revisar proyectos, contactar          |
 | Cliente (proyecto freelance) | Resultados en su industria (fintech, banca, logística) | Contactar                             |
 
 ## 3. Métricas
@@ -38,8 +36,8 @@ No es un sitio terminado: es un experimento continuo.
 | Objetivo                 | Métrica                                                          | Fuente                           |
 | ------------------------ | ---------------------------------------------------------------- | -------------------------------- |
 | Que me encuentren        | Impresiones, CTR y posición en búsquedas de nombre + rol         | Search Console                   |
-| Que lleguen al contenido | `page_view` por ruta: embudo de `/` a `/contacto`                | GA4                              |
-| Qué les interesa         | `cta_click` por `cta` × `location`, y por `project` en los casos | GA4                              |
+| Que lleguen al contenido | `section_view` por sección: embudo del scroll, del hero a Contacto | GA4                              |
+| Qué les interesa         | `cta_click` por `cta` × `location`; `section_view` por sección   | GA4                              |
 | Conversión               | `generate_lead` (formulario) y `file_download` (CV)              | GA4, eventos clave               |
 | Fricción                 | Dead clicks, rage clicks, mapas de scroll, grabaciones           | Microsoft Clarity                |
 | Velocidad                | LCP, INP y CLS de usuarios reales                                | Search Console (Core Web Vitals) |
@@ -77,13 +75,9 @@ src/content/                 datos del portfolio: perfil, proyectos, experiencia
 ### Rutas
 
 ```
-/                    01 · Inicio
-/sobre-mi            02 · Sobre mí
-/stack               03 · Stack
-/proyectos           04 · Proyectos
-/experiencia         05 · Experiencia
-/contacto            06 · Contacto ("Mensaje enviado" es un estado del formulario)
-/sitemap.xml         las 6 rutas
+/                    una sola página: #inicio, #sobre-mi, #stack, #proyectos, #experiencia y #contacto
+/sobre-mi …          rutas de v1 (/sobre-mi, /stack, /proyectos, /experiencia, /contacto): 308 a su ancla
+/sitemap.xml         solo /
 /robots.txt
 ```
 
@@ -96,9 +90,9 @@ estático.
 
 ```
 CTA con data-cta ── clic ─► CtaTracker ─┐
-Formulario ── enviado ──────────────────┴─► track() ─► GA4 (cta_click, generate_lead)
+Sección (data-section) ── cruza la mitad ─► SectionViews ─┤
+Formulario ── enviado ──────────────────┴─► track() ─► GA4 (cta_click, section_view, generate_lead)
                                                      └► Clarity (eventos para filtrar grabaciones)
-Cada ruta ── carga ─► GA4 page_view (medición mejorada): embudo del recorrido
 ```
 
 **Contacto.** Formulario (`useActionState`) → `sendContactAction` → `sendContactMessage` (el dominio valida) →
@@ -132,7 +126,7 @@ de enviar; a Resend solo llega un mensaje válido.
 medir (2–4 semanas) → detectar dónde caen los clics o el abandono → hipótesis → un cambio → deploy con fecha → medir
 ```
 
-- Revisión cada dos semanas: Search Console (consultas y CTR), GA4 (`cta_click`, `page_view` por ruta, eventos clave) y
+- Revisión cada dos semanas: Search Console (consultas y CTR), GA4 (`cta_click`, `section_view`, eventos clave) y
   Clarity (grabaciones de sesiones con `generate_lead` y de sesiones que abandonan).
 - Un cambio a la vez, con su fecha, para poder atribuir el resultado.
 - Si la métrica no mejora, se revierte.
@@ -142,9 +136,9 @@ medir (2–4 semanas) → detectar dónde caen los clics o el abandono → hipó
 Brechas entre el diseño y lo que muestran los estudios de clics (análisis en `docs/skills/seo-ux/SKILL.md`, sección
 2). Son las primeras candidatas a medir:
 
-1. LinkedIn y GitHub en "Sobre mí" (hoy solo están en Contacto) → más clics a LinkedIn de reclutadores.
-2. Nombre completo visible en el hero (hoy solo aparece el logo `jesus.matute`) → más impresiones en búsquedas por
-   nombre.
+1. LinkedIn y GitHub en el hero (v2; antes solo estaban en Contacto) → más clics a LinkedIn de reclutadores.
+2. Nombre completo visible en el hero (v2; antes solo aparecía el logo `jesus.matute`) → más impresiones en
+   búsquedas por nombre.
 3. "Ver demo" y "Ver código" en los casos públicos → más clics de perfiles técnicos.
 
 ### Registro de experimentos
@@ -158,4 +152,4 @@ Una fila por cambio publicado.
 
 - `docs/skills/clean-architecture`: capas, imports permitidos y ejemplos.
 - `docs/skills/seo-ux`: CTAs, SEO técnico, SSG y medición.
-- Penpot (team Me → proyecto portfolio): pantallas 00–07, overlay de detalle de proyecto y spec de motion.
+- Penpot (team Me → proyecto portfolio → página _Rediseño v2_): página desktop y mobile, intro, menú, 404, error y spec de motion.

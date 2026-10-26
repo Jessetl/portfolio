@@ -1,5 +1,6 @@
 {
-  "name": "Jesús Matute",
+  "name": "Jesús Eduardo Matute Rangel",
+  "alternateName": "Jesús Matute",
   "role": "Full-Stack Developer",
   "siteUrl": "https://jmatute-dev.com",
   "email": "mtree1101@gmail.com",
@@ -14,15 +15,21 @@
     }
   },
   "availability": "Disponible para nuevos proyectos",
-  "headline": {
-    "text": "Construyo productos fintech",
-    "accent": "de punta a punta."
-  },
+  "headline": "Construyo productos fintech de punta a punta.",
   "summary": "De la interfaz a la API: React y Next.js en el cliente; Node.js, NestJS y Laravel en el servidor. 7 años creando plataformas para banca, cripto, crédito y logística.",
   "stats": [
-    { "value": "7", "label": "años\nconstruyendo" },
-    { "value": "85%", "label": "cobertura de tests\n(desde 0%)" },
-    { "value": "2.000", "label": "usuarios en el\nprimer mes" }
+    {
+      "value": "7",
+      "label": "años\nconstruyendo"
+    },
+    {
+      "value": "85%",
+      "label": "cobertura de tests\n(desde 0%)"
+    },
+    {
+      "value": "2.000",
+      "label": "usuarios en el\nprimer mes"
+    }
   ],
   "bio": [
     "Soy Jesús, Ingeniero en Informática y desarrollador Full-Stack con foco en frontend. Desde 2019 construyo plataformas para banca, cripto, buró de crédito, mercado de capitales y logística, casi siempre en equipos remotos.",

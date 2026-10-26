@@ -40,7 +40,8 @@ export const Turnstile = ({
         src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
         onReady={() => setReady(true)}
       />
-      <div ref={container} />
+      {/* Fuera del flujo: invisible, no debe sumar el espacio entre campos. */}
+      <div ref={container} className='absolute' />
     </>
   );
 };

@@ -17,12 +17,13 @@ export type ExternalLink = {
 
 export type Profile = {
   name: string;
+  alternateName: string; // nombre corto, para el JSON-LD
   role: string;
   siteUrl: string;
   email: string;
   links: { linkedin: ExternalLink; github: ExternalLink };
   availability: string;
-  headline: { text: string; accent: string };
+  headline: string;
   summary: string;
   stats: Stat[];
   bio: string[];

@@ -1,40 +1,38 @@
 'use client';
 
-import { ArrowUp, RotateCw } from 'lucide-react';
+import { ArrowLeft, RotateCw, TriangleAlert } from 'lucide-react';
 import Link from 'next/link';
 
-import { ScreenTransition } from '@/components/motion/screen-transition';
 import { ErrorScreen } from '@/components/site/error-screen';
 import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 const ErrorPage = ({ retry }: { error: Error & { digest?: string }; retry: () => void }) => (
-  <ScreenTransition>
-    <ErrorScreen
-      command='npm run start'
-      output='Error inesperado'
-      title='Algo salió mal.'
-      actions={
-        <>
-          <Link
-            href='/'
-            transitionTypes={['dissolve']}
-            className={cn(buttonVariants({ variant: 'outline' }))}
-          >
-            Volver al inicio
-            <ArrowUp aria-hidden />
-          </Link>
-          <button type='button' onClick={() => retry()} className={cn(buttonVariants())}>
-            Reintentar
-            <RotateCw aria-hidden />
-          </button>
-        </>
-      }
-    >
-      Ocurrió un error inesperado al cargar esta pantalla. Intenta de nuevo o
-      vuelve al inicio.
-    </ErrorScreen>
-  </ScreenTransition>
+  <ErrorScreen
+    visual={
+      <span
+        aria-hidden
+        className='mb-8 grid size-24 place-items-center rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--blue)_25%,transparent),color-mix(in_srgb,var(--blue)_6%,transparent))] shadow-alert ring-1 ring-accent/45 ring-inset lg:size-30'
+      >
+        <TriangleAlert className='size-10 text-accent lg:size-12' />
+      </span>
+    }
+    label='Error inesperado'
+    title='Algo salió mal.'
+    actions={
+      <>
+        <button type='button' onClick={() => retry()} className={buttonVariants()}>
+          <RotateCw aria-hidden />
+          Reintentar
+        </button>
+        <Link href='/' className={buttonVariants({ variant: 'secondary' })}>
+          <ArrowLeft aria-hidden />
+          Volver al inicio
+        </Link>
+      </>
+    }
+  >
+    Ocurrió un error inesperado al cargar esta pantalla. Intenta de nuevo o vuelve al inicio.
+  </ErrorScreen>
 );
 
 export default ErrorPage;

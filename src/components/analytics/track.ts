@@ -1,10 +1,12 @@
 import type { Cta, CtaLocation } from './cta';
+import type { Section } from './section';
 
 export type AnalyticsEvent =
   | {
       name: 'cta_click';
-      params: { cta: Cta; location: CtaLocation; project?: string };
+      params: { cta: Cta; location: CtaLocation };
     }
+  | { name: 'section_view'; params: { section: Section } }
   | { name: 'generate_lead'; params: { form: 'contact' } };
 
 type AnalyticsWindow = Window & {

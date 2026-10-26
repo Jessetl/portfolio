@@ -3,7 +3,7 @@ name: seo-ux
 description: >-
   SEO técnico, UX de conversión y medición de CTAs para este portfolio (Next.js 16 App Router, SSG con el modelo de
   caché anterior —sin cacheComponents—, GA4 vía @next/third-parties y Microsoft Clarity). Define qué CTAs priorizar y
-  dónde ubicarlos según dónde hacen clic los usuarios (Ver proyectos, Ver caso, CV, Hablemos/Contacto, LinkedIn,
+  dónde ubicarlos según dónde hacen clic los usuarios (Ver proyectos, CV, Hablemos/Contacto, LinkedIn,
   GitHub, email), cómo marcarlos y medirlos sin dañar Core Web Vitals, y cómo configurar SSG, metadata, canonical,
   Open Graph, sitemap, robots, JSON-LD, imágenes y fuentes. Úsala SIEMPRE que se cree o revise una página, sección,
   botón, enlace, CTA, formulario o el header; al tocar metadata, títulos, imágenes, fuentes, scripts de terceros,
@@ -50,27 +50,27 @@ Código de referencia: `references/ejemplos.md`. Configurar GA4, Clarity y Searc
 
 Zonas con más clics en portfolios (mapas de calor), contrastadas con las pantallas de Penpot:
 
-| Zona                         | Qué buscan                   | CTAs del diseño                                                           | Brecha a cubrir                                                                           |
-| ---------------------------- | ---------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Header (todas las pantallas) | Navegar, CV                  | Nav 01–06, `CV`                                                           | —                                                                                         |
-| Hero (01 · Inicio)           | Ver trabajo o contactar      | `Ver proyectos` (primario), `Hablemos` (secundario)                       | El nombre completo no aparece en texto (solo el logo `jesus.matute`)                      |
-| Proyectos (04)               | Detalle, demo, código        | Tarjeta completa → `Ver caso`; en el detalle, `Hablemos de este proyecto` | No hay `Ver demo` ni `Ver código`: agrégalos en el detalle cuando el proyecto sea público |
-| Sobre mí (02)                | Quién eres, LinkedIn, GitHub | —                                                                         | LinkedIn y GitHub solo están en Contacto: súmalos aquí                                    |
-| Experiencia (05)             | Trayectoria, CV              | `Descargar CV`                                                            | —                                                                                         |
-| Contacto (06)                | Escribir                     | Email, LinkedIn, GitHub, `Enviar mensaje`                                 | Hace de footer: no hay pie de página                                                      |
-| Mensaje enviado (07)         | Siguiente paso               | `Volver al inicio`, `Ver proyectos`                                       | —                                                                                         |
+| Zona                  | Qué buscan              | CTAs del diseño (v2)                                                       | Brecha a cubrir                                                 |
+| --------------------- | ----------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Header (fijo)         | Navegar, CV             | Nav a las 5 secciones, `CV`; en mobile, menú con `Hablemos` y `Descargar CV` | —                                                               |
+| Hero (`#inicio`)      | Ver trabajo o contactar | `Ver proyectos` (primario), `Hablemos`, `Descargar CV`, GitHub, LinkedIn   | —                                                               |
+| Sobre mí              | Quién eres              | —                                                                          | —                                                               |
+| Proyectos             | Detalle, demo, código   | —                                                                          | No hay `Ver demo` ni `Ver código` cuando el proyecto sea público |
+| Experiencia           | Trayectoria, CV         | `Descargar CV`                                                             | —                                                               |
+| Contacto              | Escribir                | Email (enlace y copiar), LinkedIn, GitHub, `Enviar mensaje`                | Copiar el email no tiene estado "copiado" en Penpot             |
+| Mensaje enviado       | Siguiente paso          | `Volver al inicio`, `Ver proyectos`                                        | —                                                               |
+| Footer                | Redes, volver arriba    | GitHub, LinkedIn, email, `Volver arriba`                                   | —                                                               |
 
-Prioridad de los CTAs, de más a menos valor: `Enviar mensaje` y `Hablemos` → `CV` → `Ver caso` → LinkedIn y GitHub →
-navegación.
+Prioridad de los CTAs, de más a menos valor: `Enviar mensaje` y `Hablemos` → `CV` → LinkedIn y GitHub → navegación.
 
 ## 3. Reglas de UX para CTAs
 
 1. **Un primario por vista.** El resto, secundario o ghost (las variantes de Penpot). Dos primarios compiten entre sí.
-2. **Verbo + objeto.** "Ver caso", "Descargar CV", "Hablemos de este proyecto"; nunca "Click aquí" ni "Más". Si el
-   texto visible es genérico ("Ver caso"), el enlace debe nombrar el objeto: en la tarjeta, el enlace es el título del
-   proyecto y "Ver caso →" es decorativo. Eso también es mejor texto de enlace para Google.
-3. **Lo que parece clicable, lo es.** La tarjeta de proyecto entera es el enlace, no solo el texto "Ver caso". Nada
-   decorativo con forma de botón: Clarity lo muestra como _dead clicks_ o _rage clicks_.
+2. **Verbo + objeto.** "Ver proyectos", "Descargar CV", "Enviar mensaje"; nunca "Click aquí" ni "Más". Si
+   el texto visible es genérico, el enlace debe nombrar el objeto (texto oculto o `aria-label`). Eso también es mejor
+   texto de enlace para Google.
+3. **Lo que parece clicable, lo es.** Si una tarjeta lleva a algún lado (LinkedIn y GitHub en Contacto), toda la
+   tarjeta es el enlace. Nada decorativo con forma de botón: Clarity lo muestra como _dead clicks_ o _rage clicks_.
 4. **Enlaces reales.** Navega con `<Link>` o `<a href>`, nunca con `onClick` en un `div`: Google sigue `href`, no
    handlers, y una vista sin URL no se indexa.
 5. **Contraste y tamaño.** Texto ≥ 4,5:1 e íconos y bordes ≥ 3:1 (WCAG AA). Área táctil recomendada de 44 × 44 px (el
@@ -86,27 +86,30 @@ navegación.
 9. **Misma acción, mismo nombre y destino.** `CV` del header y `Descargar CV` bajan el mismo archivo; `Hablemos`
    siempre lleva a Contacto.
 10. **Feedback inmediato.** Tras enviar, "Mensaje enviado" confirma y ofrece el siguiente paso.
-11. **La intro no bloquea.** La pantalla 00 (terminal) es un overlay sobre HTML ya renderizado: se salta con clic o
-    Enter (como indica el diseño), aparece una vez por sesión y se omite con `prefers-reduced-motion`. Nunca retrasa el
-    hero (LCP).
+11. **La intro no bloquea.** La intro (terminal) es un overlay sobre HTML ya renderizado: se salta con clic o
+    Enter (como indica el diseño), aparece una vez por sesión y se omite con `prefers-reduced-motion` o al entrar por un
+    ancla (`/#contacto`). Nunca retrasa el hero (LCP).
 
 ## 4. Medición: GA4 + Clarity
 
 - **GA4** (`@next/third-parties/google`) registra los eventos de negocio. **Clarity** (`next/script`, `lazyOnload`)
   aporta mapas de calor, mapas de scroll, grabaciones y clics frustrados.
-- Los CTAs siguen siendo Server Components: se marcan con `ctaAttrs(cta, location, project?)` (atributos `data-cta*`).
-  `CtaTracker` (root layout) escucha todos los clics por delegación. Cero JS por botón y SSG intacto.
-- Cada pantalla es una ruta: el embudo del recorrido (01 → 06) sale del `page_view` de GA4 por ruta, sin evento
-  propio.
+- Los CTAs siguen siendo Server Components: se marcan con `ctaAttrs(cta, location)` (atributos `data-cta*`).
+  Las secciones del inicio, con `sectionAttrs(section)` (`id` del ancla + `data-section`). `CtaTracker` (root layout)
+  escucha todos los clics por delegación; `SectionViews` (en el inicio, no en el layout) observa cuándo cada sección
+  cruza la mitad de la pantalla, una vez por vista. Cero JS por botón y SSG intacto.
+- Una sola página: el embudo del recorrido (inicio → contacto) sale de `section_view`.
 - Catálogo cerrado: no agregues eventos ni valores sin sumarlos aquí.
 
-| Evento          | Cuándo                                    | Parámetros                              |
-| --------------- | ----------------------------------------- | --------------------------------------- |
-| `cta_click`     | Clic en un elemento con `data-cta`        | `cta`, `location`, `project` (opcional) |
-| `generate_lead` | El formulario de contacto devuelve `sent` | `form: 'contact'`                       |
+| Evento          | Cuándo                                                                       | Parámetros                              |
+| --------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| `cta_click`     | Clic en un elemento con `data-cta`                                           | `cta`, `location`                       |
+| `section_view`  | Una sección (`data-section`) cruza la mitad de la pantalla; una vez por vista | `section`                               |
+| `generate_lead` | El formulario de contacto devuelve `sent`                                    | `form: 'contact'`                       |
 
-- `cta`: `projects` · `contact` · `case_study` · `cv` · `email` · `linkedin` · `github`.
-- `location`: `header` · `hero` · `about` · `projects` · `project_detail` · `experience` · `contact` · `sent`.
+- `cta`: `projects` · `contact` · `cv` · `email` · `linkedin` · `github`.
+- `location`: `header` · `hero` · `experience` · `contact` · `sent` · `footer`.
+- `section`: `home` · `about` · `stack` · `projects` · `experience` · `contact`.
 - La medición mejorada de GA4 ya registra `page_view` (también en navegación del cliente), `file_download` (el PDF del
   CV) y clics salientes. `cta_click` agrega _desde dónde_ se hizo el clic.
 - Sin datos personales en los eventos (ni el nombre ni el email del formulario): las políticas de GA4 lo prohíben.
@@ -137,21 +140,14 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 ### Estructura de URLs
 
 ```
-/                    01 · Inicio
-/sobre-mi            02 · Sobre mí
-/stack               03 · Stack
-/proyectos           04 · Proyectos
-/experiencia         05 · Experiencia
-/contacto            06 · Contacto
+/                    una sola página: #inicio, #sobre-mi, #stack, #proyectos, #experiencia y #contacto
+/sobre-mi … /contacto rutas de v1: redirigen (308) a su ancla (next.config.ts)
 ```
 
-- Una ruta por pantalla, como el prototipo de Penpot (flujo en Z). Cada una tiene su propio `title`, `description`
-  y `h1`. La lista vive en `src/components/site/screens.ts`, que comparten la nav del header y el footer.
-- El detalle de proyecto es un modal sobre `/proyectos` (en el prototipo de Penpot, `open-overlay`), sin URL propia:
-  no se indexa por separado ni se comparte con enlace. Por eso el título, el resumen y las tecnologías de cada caso
-  también están en la tarjeta, en el HTML de `/proyectos`.
-- "Mensaje enviado" (07) es un estado del formulario de `/contacto`, no una ruta indexable. La intro (00) es un
-  overlay de la primera visita.
+- Todo el contenido está en el HTML del inicio, con un `h1` (el nombre) y un `h2` por sección. La nav del header y
+  del menú móvil sale de `src/components/site/sections.ts` y enlaza a `/#ancla`, así funciona también desde la 404.
+- Las redirecciones 308 conservan los enlaces viejos (LinkedIn, Search Console) y pasan su señal al inicio.
+- "Mensaje enviado" es un estado del formulario, no una ruta indexable. La intro es un overlay de la primera visita.
 
 ## 6. Checklist SEO por página
 
@@ -165,13 +161,13 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 - [ ] `openGraph` del hijo reemplaza al del layout, no se fusiona: repite lo necesario.
 - [ ] `src/app/opengraph-image.png` (1200 × 630).
 - [ ] JSON-LD `Person` en el inicio (nombre, rol, URL, `sameAs` con LinkedIn y GitHub), con `<` escapado.
-- [ ] `sitemap.ts` (las 6 rutas) y `robots.ts` apuntando al sitemap. Google ignora `priority` y `changeFrequency`;
+- [ ] `sitemap.ts` (solo `/`) y `robots.ts` apuntando al sitemap. Google ignora `priority` y `changeFrequency`;
       `lastModified` solo si es real.
 - [ ] Imágenes con `next/image`, `alt` descriptivo y `width`/`height` (o `fill` + `sizes`). La imagen LCP, si la hay,
       con `loading="eager"` o `fetchPriority="high"`: en Next 16 `priority` está deprecado.
-- [ ] Fuentes con `next/font` (Fraunces, IBM Plex Sans, JetBrains Mono): sin saltos de layout ni peticiones a Google
+- [ ] Fuentes con `next/font` (IBM Plex Sans, JetBrains Mono): sin saltos de layout ni peticiones a Google
       en runtime.
-- [ ] Enlaces internos con `<Link>` a las rutas de `src/components/site/screens.ts`.
+- [ ] Enlaces internos con `<Link>` a las anclas de `src/components/site/sections.ts`.
 - [ ] `pnpm build` sin rutas `ƒ`, y Lighthouse ≥ 90 en Performance, Accessibility y SEO para el inicio.
 
 ## 7. Antipatrones
@@ -179,13 +175,13 @@ El proyecto usa el modelo anterior de caché de Next 16 (sin `cacheComponents`):
 | Síntoma                                                           | Impacto                                  | Corrección                                             |
 | ----------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------ |
 | CTA hecho con `<div onClick>`                                     | SEO + accesibilidad                      | `<Link>` o `<a href>`                                  |
-| Solo el texto "Ver caso" es clicable                              | UX (dead clicks)                         | Toda la tarjeta es el enlace                           |
-| Información clave solo dentro del modal de detalle                | SEO: no indexable                        | Título, resumen y tecnologías también en la tarjeta    |
+| Tarjeta que lleva a un sitio, pero solo el texto es clicable      | UX (dead clicks)                         | Toda la tarjeta es el enlace                           |
+| Información clave solo dentro de un modal                         | SEO: no indexable                        | El contenido va en el HTML de la página                |
 | `useSearchParams` o `cookies()` en una página                     | Rompe el SSG (el build falla)            | Moverlo a un Client Component o eliminarlo             |
 | Analítica con `beforeInteractive` o `<script>` manual en `<head>` | CWV                                      | `@next/third-parties` y `next/script` con `lazyOnload` |
 | `onClick={() => sendGAEvent(...)}` en cada botón                  | JS y Client Components de más            | `ctaAttrs` + `CtaTracker`                              |
 | Canonical en el layout                                            | SEO: todas las páginas apuntan al inicio | Canonical por página                                   |
 | Intro que retiene el hero 2,5 s                                   | LCP + rebote                             | Overlay saltable sobre HTML ya renderizado             |
 | Imagen sin dimensiones                                            | CLS                                      | `next/image` con `width`/`height`                      |
-| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `project`, `form`              |
+| Email o nombre en parámetros de eventos                           | Política de GA4                          | Solo `cta`, `location`, `section`, `form`              |
 | Dos CTAs primarios en la misma vista                              | UX                                       | Uno primario; el resto, secundario                     |
