@@ -8,6 +8,9 @@ const sections = ["sobre-mi", "stack", "proyectos", "experiencia", "contacto"];
 const nextConfig: NextConfig = {
   // Sin el ícono "N" de Next en desarrollo; los errores se siguen mostrando.
   devIndicators: false,
+  experimental: {
+    agentUpgrade: "security",
+  },
   redirects: async () =>
     sections.map((section) => ({
       source: `/${section}`,
